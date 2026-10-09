@@ -1,0 +1,62 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#08090E"/>
+  
+  <!-- Subtle Grid Pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="1" opacity="0.4"/>
+    </pattern>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#4facfe"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="600" cy="250" r="350" fill="url(#glow)" filter="blur(80px)"/>
+
+  <!-- Logo Box -->
+  <rect x="548" y="100" width="104" height="104" rx="28" fill="#0c182b" stroke="#00f2fe" stroke-width="3" stroke-opacity="0.6"/>
+  <path d="M 600 130 L 580 162 L 600 162 L 592 186 L 620 152 L 600 152 Z" fill="#00f2fe"/>
+
+  <!-- Brand Name -->
+  <text x="600" y="260" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="900" letter-spacing="-1">
+    <tspan fill="#00f2fe">XIV</tspan><tspan fill="#f8fafc">IZLEY</tspan>
+  </text>
+
+  <!-- Tagline Title -->
+  <text x="600" y="330" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="800" fill="url(#textGrad)">
+    Görsel Homelab &amp; Docker Compose Mimarı
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="390" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="500" fill="#94a3b8">
+    115 Modül &amp; 31 Şablon • Otomatik Port Çakışma Analizi • 1-Tık VDS Kurulum Scripti
+  </text>
+
+  <!-- Feature Pills -->
+  <g transform="translate(370, 440)">
+    <rect x="0" y="0" width="220" height="46" rx="23" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <text x="110" y="29" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#38bdf8">
+      🛡️ %100 İstemci Taraflı
+    </text>
+
+    <rect x="240" y="0" width="220" height="46" rx="23" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <text x="350" y="29" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#a855f7">
+      🚀 Açık Kaynak &amp; Ücretsiz
+    </text>
+  </g>
+
+  <!-- Bottom URL -->
+  <text x="600" y="555" text-anchor="middle" font-family="ui-monospace, Menlo, Monaco, monospace" font-size="18" font-weight="600" fill="#475569">
+    https://xivizley.com.tr
+  </text>
+</svg>

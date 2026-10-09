@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="neonCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="100%" stop-color="#4facfe" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <rect width="200" height="200" fill="#09090b" rx="40" />
+  
+  <g transform="translate(40, 40)" filter="url(#glow)">
+    <!-- X shape stylized -->
+    <path d="M10 10 L50 60 L90 10 L110 10 L60 70 L110 130 L90 130 L50 80 L10 130 L-10 130 L40 70 L-10 10 Z" fill="url(#neonCyan)" />
+    
+    <!-- V stylized -->
+    <path d="M70 10 L95 70 L120 10 L140 10 L105 90 L85 90 L50 10 Z" fill="#ffffff" fill-opacity="0.9" />
+  </g>
+</svg>
