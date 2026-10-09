@@ -31,7 +31,7 @@ export const SPONSORS: Record<string, SponsorItem> = {
     affiliateUrl: 'https://www.oweb.net.tr/aff.php?aff=975',
     role: 'Resmi Altyapı Sponsorumuz (OWEB TR Cloud & 10 Gbit/s Datacenter NVMe)',
     roleEn: 'Official Infrastructure Sponsor (OWEB TR Cloud & 10 Gbit/s Datacenter NVMe)',
-    badge: '⚡ OWEB TR Cloud & 10 Gbps NVMe Sponsoru',
+    badge: 'OWEB TR Cloud & 10 Gbps NVMe Sponsoru',
     accentColor: '#00F2FE',
     enabled: true,
   },
@@ -43,7 +43,7 @@ export const SPONSORS: Record<string, SponsorItem> = {
     affiliateUrl: 'https://www.hosting.com.tr/aff.php?aff=1702',
     role: 'Resmi Altyapı Sponsorumuz (Yüksek Hızlı NVMe VDS)',
     roleEn: 'Official Infrastructure Sponsor (High-Speed NVMe VDS)',
-    badge: '⚡ Resmi Altyapı Sponsorumuz',
+    badge: 'Resmi Altyapı Sponsorumuz',
     accentColor: '#8B5CF6',
     enabled: true,
     recommendedTiers: [

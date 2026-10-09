@@ -156,10 +156,10 @@ export default function LandingPage() {
     {
       q: isTr ? 'XIVIZLEY tamamen ücretsiz mi?' : isPt ? 'O XIVIZLEY é totalmente gratuito?' : 'Is XIVIZLEY completely free?',
       a: isTr
-        ? 'Evet, %100 ücretsiz ve tarayıcı tabanlıdır. Kayıt olma veya kredi kartı zorunluluğu yoktur. Şablonlar MIT lisansıyla açık kaynak olarak yayınlanmıştır.'
+        ? 'Evet, XIVIZLEY Çekirdek (Core), görsel tuval, port radarı ve tüm Homelab mimarlık araçları %100 ücretsiz ve MIT lisansıyla açık kaynaklıdır. Kendi sunucunuza kurup dilediğiniz gibi çalıştırabilirsiniz. Kendi kendine barındırılan (self-hosted) Suite araçları da tamamen ücretsizdir; yalnızca merkezi barındırılan bulut senkronizasyon özellikleri özeldir.'
         : isPt
-        ? 'Sim, 100% gratuito e roda inteiramente no seu navegador. Sem cadastro ou cartão de crédito. Modelos são código aberto com licença MIT.'
-        : 'Yes, 100% free and runs entirely in your browser. No sign-up or credit card required. Templates are MIT-licensed open source.',
+        ? 'Sim. O XIVIZLEY Core — a tela visual, o radar de portas e todas as ferramentas de arquitetura homelab — é 100% gratuito e de código aberto com licença MIT. Você pode auto-hospedar e executar como quiser. As ferramentas Suite auto-hospedadas também são totalmente gratuitas; apenas os recursos de sincronização em nuvem hospedados centralmente são premium.'
+        : 'Yes. XIVIZLEY Core — the visual canvas, port radar, and all homelab architecture tools — is 100% free and MIT-licensed open source. You can self-host and run it however you like. The self-hosted Suite tools are entirely free too; only the centrally hosted cloud sync features are premium.',
     },
     {
       q: isTr ? 'Tasarladığım mimariyi VDS sunucuma nasıl kurarım?' : isPt ? 'Como implanto minha arquitetura em um servidor VDS?' : 'How do I deploy my architecture to a VDS server?',
@@ -211,6 +211,25 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
+
+      {/* Homepage-scoped FAQPage structured data (kept in sync with the visible accordion) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: FAQS.map((faq) => ({
+              '@type': 'Question',
+              name: faq.q,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.a,
+              },
+            })),
+          }),
+        }}
+      />
 
       <main id="main-content">
 
@@ -285,7 +304,7 @@ export default function LandingPage() {
                   </div>
                   {[
                     { param: 'PLATFORM.TYPE', value: isTr ? 'Görsel Docker Mimarlık Tuvali' : 'Visual Docker Architecture Canvas', unit: '—' },
-                    { param: 'MODULE.COUNT', value: '60', unit: isTr ? 'Docker Modülü' : 'Docker Modules' },
+                    { param: 'MODULE.COUNT', value: `${PLATFORM_STATS.totalModules}`, unit: isTr ? 'Docker Modülü' : 'Docker Modules' },
                     { param: 'TEMPLATE.COUNT', value: '31', unit: isTr ? 'Hazır Şablon' : 'Curated Stacks' },
                     { param: 'DEPLOY.METHOD', value: 'curl -sSL ... | bash', unit: isTr ? '1-Tıkla SSH' : '1-Click SSH' },
                     { param: 'LICENSE', value: 'MIT Open Source', unit: isTr ? '100% Ücretsiz' : '100% Free' },
@@ -325,6 +344,18 @@ export default function LandingPage() {
                   >
                     {isTr ? '31 Hazır Şablonu İncele' : isPt ? 'Ver 31 Stacks Prontas' : 'Explore 31 Stacks'}
                   </Link>
+                  <a
+                    href="https://github.com/Xivizley/xivizley"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-7 py-3 font-mono text-[13px] font-semibold tracking-wide text-[#C084FC] border border-[#2B1A42] bg-[#120A21] hover:border-[#8B5CF6] hover:text-[#FFFFFF] transition-colors"
+                    style={{ borderRadius: '2px' }}
+                  >
+                    <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.41-5.25 5.69.41.35.78 1.05.78 2.12 0 1.53-.01 2.76-.01 3.14 0 .31.2.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z" />
+                    </svg>
+                    GITHUB [ MIT CORE ]
+                  </a>
                 </div>
 
                 {/* Current service live ticker */}
@@ -666,16 +697,18 @@ export default function LandingPage() {
                       <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square"/>
                     </svg>
                   </button>
-                  {activeFaq === idx && (
-                    <div
-                      id={`faq-a-${idx}`}
-                      role="region"
-                      aria-labelledby={`faq-q-${idx}`}
-                      className="pb-5 pl-12 font-mono text-[12px] text-[#A19BAF] leading-relaxed"
-                    >
-                      {faq.a}
+                  <div
+                    id={`faq-a-${idx}`}
+                    role="region"
+                    aria-labelledby={`faq-q-${idx}`}
+                    className={`grid transition-all duration-300 ease-out ${activeFaq === idx ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="pb-5 pl-12 font-mono text-[12px] text-[#A19BAF] leading-relaxed">
+                        {faq.a}
+                      </p>
                     </div>
-                  )}
+                  </div>
                 </div>
               ))}
             </div>

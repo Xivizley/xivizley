@@ -355,7 +355,7 @@ export function Navbar({
                 )}
               >
                 <Radio className={cn('h-3.5 w-3.5', isLiveConnected ? 'text-emerald-400 animate-pulse' : 'text-[#C084FC]')} />
-                <span>{isLiveConnected ? `● ${isTr ? 'VDS Canlı' : isPt ? 'VDS Ao Vivo' : 'VDS Live'} (%${liveStats?.cpuUsage ?? 0})` : (isTr ? '⚡ Canlı Sunucu' : isPt ? '⚡ Servidor Ao Vivo' : '⚡ Live Server')}</span>
+                <span>{isLiveConnected ? `● ${isTr ? 'VDS Canlı' : isPt ? 'VDS Ao Vivo' : 'VDS Live'} (%${liveStats?.cpuUsage ?? 0})` : (isTr ? 'Canlı Sunucu' : isPt ? 'Servidor Ao Vivo' : 'Live Server')}</span>
               </button>
             )}
 
@@ -578,6 +578,20 @@ export function Navbar({
             </Link>
           )}
 
+          {/* GitHub social proof */}
+          <a
+            href="https://github.com/Xivizley/xivizley"
+            target="_blank"
+            rel="noopener noreferrer"
+            title={isTr ? 'GitHub — MIT Lisanslı Açık Kaynak' : isPt ? 'GitHub — Código Aberto MIT' : 'GitHub — MIT-licensed Open Source'}
+            aria-label={isTr ? 'GitHub deposunu aç (yeni sekmede açılır)' : 'Open GitHub repository (opens in new tab)'}
+            className="hidden sm:flex items-center justify-center rounded-[2px] border border-[#2B1A42] bg-[#120A21] p-1.5 text-[#A19BAF] hover:border-[#8B5CF6] hover:text-[#C084FC] transition-all"
+          >
+            <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.16-.02-2.1-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.41-5.25 5.69.41.35.78 1.05.78 2.12 0 1.53-.01 2.76-.01 3.14 0 .31.2.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z" />
+            </svg>
+          </a>
+
           {/* Theme Selector */}
           <ThemeSelector />
 
@@ -686,7 +700,7 @@ export function Navbar({
           >
             <span className="flex items-center gap-2">
               <Gift className="h-4 w-4 text-[#C084FC]" />
-              {isTr ? '🎁 Ücretsiz Self-Host Rehberi' : isPt ? '🎁 Guia Self-Hosted Grátis' : '🎁 Free Self-Hosting Guide'}
+              {isTr ? 'Ücretsiz Self-Host Rehberi' : isPt ? 'Guia Self-Hosted Grátis' : 'Free Self-Hosting Guide'}
             </span>
             <span className="rounded-[2px] bg-[#120A21] border border-[#2B1A42] px-2 py-0.5 text-[10px] font-mono text-[#C084FC]">{isTr ? 'Rehber' : isPt ? 'Guia' : 'Guide'}</span>
           </button>

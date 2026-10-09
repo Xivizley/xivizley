@@ -87,44 +87,10 @@ const jsonLd = {
         availableLanguage: ['Turkish'],
       },
     },
-    {
-      '@type': 'FAQPage',
-      '@id': 'https://xivizley.com.tr/#faq',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'XIVIZLEY nedir ve ne işe yarar?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'XIVIZLEY, Linux ve VDS sunucularda Docker servislerini (Nextcloud, Plex, Vaultwarden, Immich vb.) sürükle-bırak yöntemiyle görsel olarak tasarlamanızı, port çakışmalarını önceden tespit etmenizi ve tek satır komutla sunucunuza kurmanızı sağlayan ücretsiz bir homelab mimarıdır.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Docker port çakışması (Port Conflict) nasıl çözülür?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'XIVIZLEY, tuvalinize eklediğiniz servislerin kullandığı portları (örneğin port 80 veya 53) anlık olarak denetler. Bir çakışma olduğunda kırmızı bildirim verir ve boş bir alternatif port (örn: 80 ➔ 8080) önererek çakışmayı tek tıkla giderir.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'XIVIZLEY kullanımı ücretsiz mi?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Evet, XIVIZLEY %100 ücretsiz ve tarayıcı tabanlıdır. Üyelik veya kredi kartı gerektirmez.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Tasarladığım mimariyi VDS veya VPS sunucuma nasıl kurarım?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Tasarımınızı tamamladıktan sonra "Dağıtıma Hazırla" butonuna basarak üretilen tek satırlık SSH komutunu kopyalayıp sunucu terminalinize yapıştırmanız yeterlidir.',
-          },
-        },
-      ],
-    },
+    // NOTE: FAQPage structured data is intentionally NOT declared here.
+    // It is emitted on the homepage only (app/page.tsx) from the same FAQS
+    // source as the visible accordion, to avoid duplicate/empty FAQ schemas
+    // being injected on every route (e.g. /compare ships its own FAQPage).
   ],
 };
 

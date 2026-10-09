@@ -69,7 +69,10 @@ export function SponsorSection() {
             </div>
 
             <div className="flex items-center justify-between pt-4 border-t border-slate-800/80">
-              <span className="text-[11px] font-bold text-cyan-400">⚡ OWEB TR Cloud</span>
+              <span className="inline-flex items-center gap-1 text-[11px] font-bold text-cyan-400">
+                <Zap className="h-3 w-3" aria-hidden="true" />
+                OWEB TR Cloud
+              </span>
               <a
                 href={odeaweb.url}
                 target="_blank"
@@ -150,8 +153,9 @@ export function SponsorSection() {
                   SP
                 </div>
                 <div>
-                  <span className="rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-[10px] font-bold text-emerald-300 border border-emerald-500/40">
-                    🚀 $5,000 Startup Grant Partner
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-[10px] font-bold text-emerald-300 border border-emerald-500/40">
+                    <Rocket className="h-3 w-3" aria-hidden="true" />
+                    $5,000 Startup Grant Partner
                   </span>
                   <h3 className="text-base font-extrabold text-slate-100 mt-1">
                     SendPulse
@@ -178,7 +182,10 @@ export function SponsorSection() {
           </div>
 
           <div className="flex items-center justify-between pt-4 border-t border-slate-800/80">
-            <span className="text-[11px] font-bold text-emerald-400">✨ SendPulse for Startups</span>
+            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400">
+              <Sparkles className="h-3 w-3" aria-hidden="true" />
+              SendPulse for Startups
+            </span>
             <a
               href="https://sendpulse.com/for-startups?utm_source=xivizley&utm_medium=partner"
               target="_blank"
