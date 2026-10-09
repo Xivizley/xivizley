@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
+import { PLATFORM_STATS } from '@/lib/constants/stats';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const script = `#!/usr/bin/env bash
 # ==============================================================================
-#  🚀 XIVIZLEY Suite v1.1 (Sovereign Cloud Edition) — Self-Hosted Kurulum Sihirbazı
+#  🚀 XIVIZLEY Suite ${PLATFORM_STATS.suiteLabel} — Self-Hosted Kurulum Sihirbazı
 #  🌐 Resmi Web Sitesi: https://xivizley.com.tr/suite
 #  📦 Kaynak Kod:       https://github.com/Xivizley/xivizley-suite
 #  🛡️ Güvenlik:         set -euo pipefail & main atomic execution
@@ -21,7 +22,7 @@ NC="\\x1b[0m"
 
 main() {
   echo -e "\${CYAN}============================================================\${NC}"
-  echo -e "\${BOLD}  🚀 XIVIZLEY Suite v1.1 (Sovereign Cloud) — Kurulum Sihirbazı\${NC}"
+  echo -e "\${BOLD}  🚀 XIVIZLEY Suite ${PLATFORM_STATS.suiteLabel} — Kurulum Sihirbazı\${NC}"
   echo -e "\${CYAN}============================================================\${NC}"
 
   if ! command -v git &> /dev/null; then
@@ -42,7 +43,7 @@ main() {
     cd "\${TARGET_DIR}"
     git pull origin main
   else
-    echo -e "\${YELLOW}📥 XIVIZLEY Suite v1.1 (Sovereign Cloud) indiriliyor...\${NC}"
+    echo -e "\${YELLOW}📥 XIVIZLEY Suite ${PLATFORM_STATS.suiteLabel} indiriliyor...\${NC}"
     git clone https://github.com/Xivizley/xivizley-suite.git "\${TARGET_DIR}"
     cd "\${TARGET_DIR}"
   fi

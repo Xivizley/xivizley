@@ -186,12 +186,12 @@ export default function LandingPage() {
         <div className="xv-ticker-track">
           <div className="xv-ticker-inner">
             {[
-              { text: isTr ? 'XIVIZLEY Suite v1.1 Sovereign Cloud — Kendi sunucunda kur' : 'XIVIZLEY Suite v1.1 Sovereign Cloud — Self-host on your own server', link: '/suite' },
+              { text: isTr ? `XIVIZLEY Suite ${PLATFORM_STATS.suiteLabel} — Kendi sunucunda kur` : `XIVIZLEY Suite ${PLATFORM_STATS.suiteLabel} — Self-host on your own server`, link: '/suite' },
               { text: isTr ? 'OWEB TR Cloud — Resmi Altyapı Sponsoru 10 Gbps NVMe' : 'OWEB TR Cloud — Official Infrastructure Partner 10 Gbps NVMe', link: 'https://www.oweb.net.tr/aff.php?aff=975' },
               { text: isTr ? `${PLATFORM_STATS.totalModules} Docker Modülü  ${PLATFORM_STATS.totalTemplates} Hazır Şablon  Ücretsiz` : `${PLATFORM_STATS.totalModules} Docker Modules  ${PLATFORM_STATS.totalTemplates} Curated Stacks  Free`, link: '/templates' },
               { text: isTr ? 'LaunchIgniter Week 38 — Küresel Vitrin' : 'LaunchIgniter Week 38 — Global Showcase', link: 'https://launchigniter.com' },
             ].concat([
-              { text: isTr ? 'XIVIZLEY Suite v1.1 Sovereign Cloud — Kendi sunucunda kur' : 'XIVIZLEY Suite v1.1 Sovereign Cloud — Self-host on your own server', link: '/suite' },
+              { text: isTr ? `XIVIZLEY Suite ${PLATFORM_STATS.suiteLabel} — Kendi sunucunda kur` : `XIVIZLEY Suite ${PLATFORM_STATS.suiteLabel} — Self-host on your own server`, link: '/suite' },
               { text: isTr ? 'OWEB TR Cloud — Resmi Altyapı Sponsoru 10 Gbps NVMe' : 'OWEB TR Cloud — Official Infrastructure Partner 10 Gbps NVMe', link: 'https://www.oweb.net.tr/aff.php?aff=975' },
               { text: isTr ? `${PLATFORM_STATS.totalModules} Docker Modülü  ${PLATFORM_STATS.totalTemplates} Hazır Şablon  Ücretsiz` : `${PLATFORM_STATS.totalModules} Docker Modules  ${PLATFORM_STATS.totalTemplates} Curated Stacks  Free`, link: '/templates' },
               { text: isTr ? 'LaunchIgniter Week 38 — Küresel Vitrin' : 'LaunchIgniter Week 38 — Global Showcase', link: 'https://launchigniter.com' },

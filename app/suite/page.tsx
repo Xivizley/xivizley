@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { Navbar } from '@/components/shared/Navbar';
 import { useI18nStore } from '@/lib/i18n/store';
+import { PLATFORM_STATS } from '@/lib/constants/stats';
 
 export default function SuiteOpenBetaPage() {
   const { lang } = useI18nStore();
@@ -31,7 +32,10 @@ export default function SuiteOpenBetaPage() {
   const [copiedInspect, setCopiedInspect] = useState(false);
   const [copiedGit, setCopiedGit] = useState(false);
 
-  const installCmd = 'curl -fsSL https://xivizley.com.tr/suite/install | sudo bash';
+  const suiteLabel = PLATFORM_STATS.suiteLabel;
+  const suiteStage = PLATFORM_STATS.suiteStage;
+
+  const installCmd = PLATFORM_STATS.suiteInstallCmd;
   const inspectCmd = 'curl -fsSL https://xivizley.com.tr/suite/install -o install.sh && less install.sh && sudo bash install.sh';
   const gitCloneCmd = 'git clone https://github.com/Xivizley/xivizley-suite.git && cd xivizley-suite && ./install.sh';
 
@@ -45,7 +49,7 @@ export default function SuiteOpenBetaPage() {
     {
       id: 'drive',
       title: 'XIVIZLEY Files (Drive)',
-      badge: 'v1.1 Sovereign',
+      badge: `${PLATFORM_STATS.suiteVersion} Beta`,
       icon: Cloud,
       color: 'text-sky-400',
       border: 'border-sky-500/25',
@@ -125,7 +129,7 @@ export default function SuiteOpenBetaPage() {
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-amber-500/10 px-3.5 py-1 text-xs font-bold text-amber-300 mb-5 shadow-[0_0_20px_rgba(245,158,11,0.15)]">
             <Sparkles className="h-3.5 w-3.5 text-amber-400" />
-            <span>{isTr ? 'SÜRÜM 1.1 • SOVEREIGN CLOUD EDITION' : 'VERSION 1.1 • SOVEREIGN CLOUD EDITION'}</span>
+            <span>{isTr ? `SÜRÜM ${PLATFORM_STATS.suiteVersion.toUpperCase()}` : `VERSION ${PLATFORM_STATS.suiteVersion.toUpperCase()}`} • {suiteStage.toUpperCase()}</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight">
@@ -133,14 +137,14 @@ export default function SuiteOpenBetaPage() {
               <>
                 Kendi Sunucunuzda, Kendi Domaininizde{' '}
                 <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400 bg-clip-text text-transparent">
-                  XIVIZLEY Suite v1.1
+                  XIVIZLEY Suite {suiteLabel}
                 </span>
               </>
             ) : (
               <>
                 Self-Host{' '}
                 <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400 bg-clip-text text-transparent">
-                  XIVIZLEY Suite v1.1
+                  XIVIZLEY Suite {suiteLabel}
                 </span>{' '}
                 on Your Own Server & Domain
               </>
@@ -152,6 +156,15 @@ export default function SuiteOpenBetaPage() {
               ? 'Nextcloud tasarım diliyle birleştirilmiş 6 temel homelab uygulaması tek bir Docker konteyner çatısında. Verileriniz, şifreleriniz ve oyun sunucularınız %100 kendi VDS/VPS sunucunuzda ve kendi alan adınızda (domain) çalışır.'
               : '6 unified homelab applications built with the Nextcloud Hub design language in a single Docker stack. Your files, passwords, and game servers run 100% on your own server, your own domain, and your own data.'}
           </p>
+
+          <div className="mt-5 inline-flex items-start gap-2 rounded-xl border border-amber-400/30 bg-amber-500/10 px-3.5 py-2 text-xs text-amber-200 text-left">
+            <ShieldCheck className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" aria-hidden="true" />
+            <span>
+              {isTr
+                ? 'Erken erişim (beta) sürümü. Üretim ortamında kullanmadan önce lütfen yedek alın; geri bildiriminiz sürümü şekillendirir.'
+                : 'Early-access (beta) release. Back up before production use; your feedback shapes the release.'}
+            </span>
+          </div>
         </div>
 
         {/* ─── 1-Command Self-Hosted Installer Card ─── */}
@@ -176,7 +189,7 @@ export default function SuiteOpenBetaPage() {
                 className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/40 bg-emerald-950/40 px-3.5 py-2 text-xs font-bold text-emerald-300 hover:bg-emerald-900/50 transition-all"
               >
                 <Gamepad2 className="h-3.5 w-3.5" />
-                <span>{isTr ? 'Canlı Demo (v1.1)' : 'Live Demo (v1.1)'}</span>
+                <span>{isTr ? `Canlı Demo (${suiteLabel})` : `Live Demo (${suiteLabel})`}</span>
                 <ExternalLink className="h-3 w-3" />
               </a>
               <a
@@ -186,7 +199,7 @@ export default function SuiteOpenBetaPage() {
                 className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3.5 py-2 text-xs font-semibold text-white hover:bg-white/10 transition-all"
               >
                 <GitBranch className="h-3.5 w-3.5 text-cyan-400" />
-                <span>GitHub (v1.1)</span>
+                <span>{`GitHub (${PLATFORM_STATS.suiteVersion})`}</span>
               </a>
             </div>
           </div>
@@ -257,7 +270,7 @@ export default function SuiteOpenBetaPage() {
         <div className="mb-14">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl sm:text-2xl font-bold text-white">
-              {isTr ? 'v1.1 Sovereign Cloud İçindeki Tümleşik Uygulamalar' : 'Integrated Apps in v1.1 Sovereign Cloud'}
+              {isTr ? `${suiteLabel} İçindeki Tümleşik Uygulamalar` : `Integrated Apps in ${suiteLabel}`}
             </h2>
             <span className="text-xs font-mono text-slate-400">Nextcloud Hub UI • Tek Konteyner</span>
           </div>
@@ -288,11 +301,11 @@ export default function SuiteOpenBetaPage() {
           </div>
         </div>
 
-        {/* ─── Release Notes Box (v1.1 Sovereign Cloud) ─── */}
+        {/* ─── Release Notes Box (Public Beta) ─── */}
         <div className="rounded-2xl border border-white/10 bg-[#0C1017] p-6 sm:p-8">
           <div className="flex items-center gap-2 text-amber-300 text-xs font-bold uppercase tracking-wider mb-3">
             <CheckCircle2 className="h-4 w-4" />
-            <span>{isTr ? 'Sürüm 1.1 (Sovereign Cloud) Sürüm Notları' : 'Version 1.1 (Sovereign Cloud) Release Notes'}</span>
+            <span>{isTr ? `${suiteLabel} Sürüm Notları` : `${suiteLabel} Release Notes`}</span>
           </div>
           <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
             <li>• <strong>Canlı Ağ ve Konteyner Topolojisi:</strong> WAN, Caddy WAF ve Docker köprü ağındaki tüm canlı servislerin durum ve gecikme haritası.</li>
