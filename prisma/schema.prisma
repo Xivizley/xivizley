@@ -1,0 +1,200 @@
+// ============================================================
+// XIVIZLEY Server Architect — Prisma Schema
+// Database: PostgreSQL
+// ORM: Prisma
+// Auth: NextAuth.js (Prisma Adapter)
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================================
+// NextAuth.js Required Models
+// ============================================================
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ============================================================
+// Core User Model
+// ============================================================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  bio           String?   @db.VarChar(280)
+  role          String    @default("USER")
+  createdAt     DateTime  @default(now())
+
+  accounts      Account[]
+  sessions      Session[]
+  architectures Architecture[]
+  likes         Like[]
+  comments      Comment[]
+  topics        ForumTopic[]
+  posts         ForumPost[]
+  notifications Notification[]
+}
+
+// ============================================================
+// Domain Models
+// ============================================================
+
+/// A saved server architecture design.
+/// canvasJson stores the full ReactFlow state (nodes + edges)
+/// as a stringified JSON blob — all computation is client-side,
+/// so we only persist and retrieve this opaque blob.
+model Architecture {
+  id          String   @id @default(cuid())
+  title       String   @db.VarChar(120)
+  description String?  @db.VarChar(500)
+  /// Stringified JSON: { nodes: Node[], edges: Edge[], moduleIds: string[] }
+  canvasJson  String   @db.Text
+  /// Pre-computed thumbnail as a data-URL or null (generated client-side on save)
+  thumbnail   String?  @db.Text
+  isPublic    Boolean  @default(true)
+  viewCount   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  likes    Like[]
+  comments Comment[]
+
+  @@index([userId])
+  @@index([isPublic, createdAt(sort: Desc)])
+  @@index([viewCount])
+}
+
+/// A user's like on a community architecture.
+/// Composite unique ensures one-like-per-user-per-architecture.
+model Like {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId         String
+  architectureId String
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  architecture Architecture @relation(fields: [architectureId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, architectureId])
+  @@index([architectureId])
+}
+
+/// A comment on a community architecture.
+model Comment {
+  id        String   @id @default(cuid())
+  body      String   @db.VarChar(1000)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId         String
+  architectureId String
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  architecture Architecture @relation(fields: [architectureId], references: [id], onDelete: Cascade)
+
+  @@index([architectureId, createdAt(sort: Asc)])
+  @@index([userId])
+}
+
+// ============================================================
+// Forum & Community Discussion Models
+// ============================================================
+
+model ForumTopic {
+  id        String      @id @default(cuid())
+  title     String      @db.VarChar(150)
+  slug      String      @unique
+  category  String      @default("genel")
+  content   String      @db.Text
+  isPinned  Boolean     @default(false)
+  viewCount Int         @default(0)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  posts ForumPost[]
+
+  @@index([userId])
+  @@index([category, createdAt(sort: Desc)])
+}
+
+model ForumPost {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  topicId String
+  topic   ForumTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([topicId, createdAt(sort: Asc)])
+  @@index([userId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String   @db.VarChar(150)
+  message   String   @db.VarChar(500)
+  isRead    Boolean  @default(false)
+  link      String?  @db.VarChar(255)
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead, createdAt(sort: Desc)])
+}

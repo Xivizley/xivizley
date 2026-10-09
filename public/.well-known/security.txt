@@ -1,0 +1,6 @@
+Contact: mailto:security@xivizley.com.tr
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: tr, en
+Canonical: https://xivizley.com.tr/.well-known/security.txt
+Policy: https://xivizley.com.tr/privacy
+Acknowledgments: https://xivizley.com.tr/about
