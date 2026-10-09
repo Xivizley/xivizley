@@ -9,12 +9,13 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
   console.log('Seeding database...');
 
-  // Create mock user
+  // Create mock user (NextAuth uses OAuth; no password or hash is stored)
+  const adminEmail = process.env.ADMIN_SEED_EMAIL || 'admin@xivizley.com.tr';
   const user = await prisma.user.upsert({
-    where: { email: 'admin@xivizley.com.tr' },
+    where: { email: adminEmail },
     update: {},
     create: {
-      email: 'admin@xivizley.com.tr',
+      email: adminEmail,
       name: 'Admin XIVIZLEY',
       bio: 'Server Architect and Homelab Enthusiast.',
       role: 'ADMIN'
