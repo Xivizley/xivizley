@@ -34,6 +34,7 @@ import { signOut, useSession } from 'next-auth/react';
 import { useI18nStore, useTranslation } from '@/lib/i18n/store';
 import { useArchitectStore } from '@/store/useArchitectStore';
 import { useLiveAgentStore } from '@/store/useLiveAgentStore';
+import { PLATFORM_STATS } from '@/lib/constants/stats';
 import { ThemeSelector } from './ThemeSelector';
 import { exportCanvasAsPng } from '@/lib/utils/exportCanvasImage';
 import { openLeadMagnetModal } from './LeadMagnetModal';
@@ -219,7 +220,7 @@ export function Navbar({
               <Sparkles className="h-3.5 w-3.5 text-[#C084FC]" />
               <span>Suite</span>
               <span className="rounded-[2px] bg-[#120A21] border border-[#2B1A42] px-1.5 py-0.5 text-[9px] font-mono font-bold text-[#C084FC]">
-                v1.1
+                {PLATFORM_STATS.suiteStage}
               </span>
             </Link>
 
@@ -674,7 +675,7 @@ export function Navbar({
               XIVIZLEY Suite (Self-Hosted)
             </span>
             <span className="rounded-[2px] bg-[#120A21] border border-[#2B1A42] px-2 py-0.5 text-[10px] font-mono font-bold text-[#C084FC]">
-              v1.1
+              {PLATFORM_STATS.suiteStage}
             </span>
           </Link>
           <Link
