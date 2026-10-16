@@ -1,0 +1,21 @@
+# XIVIZLEY — Self-Hosted Docker Compose Architecture
+# Usage: docker compose up -d
+# Access: http://localhost:3000
+
+services:
+  xivizley:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: xivizley:latest
+    container_name: xivizley-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - PORT=3000
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
