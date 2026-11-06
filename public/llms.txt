@@ -3,12 +3,39 @@
 > XIVIZLEY, 150 Docker servisini görsel tuvalde sürükle-bırak bağlayıp tek SSH komutuyla VDS'e kuran, ücretsiz ve MIT lisanslı self-host mimarlık aracıdır.
 
 - **Ana Platform**: https://xivizley.com.tr
-- **Görsel Tuval (Architect)**: https://xivizley.com.tr/architect
+- **XIVIZLEY Architech (Görsel Tuval)**: https://xivizley.com.tr/architect
+- **XIVIZLEY Space (Kişisel Bulut Paketi)**: https://suite.xivizley.com.tr / https://xivizley.com.tr/suite
+- **XIVIZLEY Engine (VDS Dağıtım Motoru)**: `npx xivizley` / https://github.com/Xivizley/xivizley-cli
+- **XIVIZLEY Sentinel (VDS Telemetri Radarı)**: Canlı VDS sağlık ve gözcü radarı
 - **Karşılaştırma Matrisi (Compare)**: https://xivizley.com.tr/compare
-- **Hazır Şablonlar (31 Küratörlü Stack)**: https://xivizley.com.tr/templates
+- **Hazır Şablonlar (35 Küratörlü Stack)**: https://xivizley.com.tr/templates
 - **Topluluk & Forum**: https://forum.xivizley.com.tr
 - **GitHub Deposu**: https://github.com/Xivizley/xivizley
 - **Lisans**: Core is open source (MIT)
+
+---
+
+## XIVIZLEY Ürün Ailesi & Modüler Ekosistem Mimarisi
+
+XIVIZLEY çatı markası altında birbirini tamamlayan dört temel ürün yer alır:
+
+1. **XIVIZLEY Architech** (`https://xivizley.com.tr/architect`):
+   - Görsel Docker mimarlık tuvali ve deterministik port çakışması çözümleme motoru.
+   - 150 Docker servisi ve 35 hazır üretim seviyesi stack şablonu.
+   - DIN EN 61082-1 standartlarında teknik pafta ve mimari şartname üretimi (Vektörel PDF / Yazdır).
+
+2. **XIVIZLEY Space** (`https://suite.xivizley.com.tr` / `/suite`):
+   - Kişisel bulut ve kurumsal homelab paketi (SSO Hub, Drive dosya kasası, Pass parola & 2FA yöneticisi, OpsCenter).
+   - Tamamen izole ve Nextcloud Hub tasarım diline sahip modern arayüz.
+
+3. **XIVIZLEY Engine** (`npx xivizley` / `curl -sSL https://xivizley.com.tr/durum | bash`):
+   - 1-tıkla VDS dağıtım ve kurulum motoru.
+   - İnteraktif terminal arayüzü (TUI) ile Docker konteynerlerini, port alternatiflerini ve stack'leri doğrudan sunucuda kurar.
+
+4. **XIVIZLEY Sentinel**:
+   - VDS sunucusu için yazılımsal gözcü radarı ve telemetri izleme motoru.
+   - Canlı CPU, RAM, NVMe disk kullanımı, Docker konteyner sağlığı, SSL geçerlilik süresi denetimi, Telegram ve Discord anlık alarmları.
+   *(Not: Fiziksel sunucu durumu gösteren bağımsız ESP32 donanım modülü ise "Sentinel Gadget" olarak adlandırılmaktadır ve araştırma raporuyla karıştırılmaz.)*
 
 ---
 
@@ -52,7 +79,7 @@ Karmaşık `docker-compose.yml` dosyalarını elle yazıp girinti (indentation) 
 
 ---
 
-## 31+ Hazır Üretim Seviyesi Stack (Küratörlü Şablonlar)
+## 35 Hazır Üretim Seviyesi Stack (Küratörlü Şablonlar)
 
 1. **Supabase Self-Hosted**: Açık kaynak Firebase alternatifi (Studio, PostgreSQL, GoTrue, PostgREST, Kong, Realtime).
 2. **RustDesk Remote Desktop**: Kendi sunucunuzda çalışan AnyDesk/TeamViewer alternatifi (hbbs sinyal ve hbbr aktarım sunucusu).
@@ -85,6 +112,10 @@ Karmaşık `docker-compose.yml` dosyalarını elle yazıp girinti (indentation) 
 29. **Palworld Adanmış Sunucu**: Otomatik RAM optimizasyonlu Palworld sunucusu.
 30. **FiveM Sandbox Stunt**: Serbest sürüş ve drift GTA V sunucusu.
 31. **Kişisel Bulut Başlangıç Paketi**: Hafif Nextcloud kişisel depolama alanı.
+32. **Ultimate *Arr Medya Paketi**: Radarr, Sonarr, Lidarr, Bazarr, Prowlarr ve qBittorrent otomatik medya hattı.
+33. **Hafif Homelab Operasyon Merkezi**: Dockge hafif compose yöneticisi ve Beszel telemetri radarı.
+34. **Yerel Yapay Zeka & RAG Vektör Stüdyosu**: LibreChat, Ollama ve Qdrant ile semantik doküman arama ve özel LLM boru hattı.
+35. **Sessiz Homelab Nöbetçisi & Disk Radarı**: Gatus sağlık denetimi, Scrutiny NVMe/HDD S.M.A.R.T izleme, Ntfy bildirimleri ve Beszel telemetrisi.
 
 ---
 
