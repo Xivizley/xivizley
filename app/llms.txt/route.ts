@@ -18,7 +18,7 @@ export async function GET() {
     });
   } catch {
     return new NextResponse(
-      "# XIVIZLEY — Visual Homelab & Docker Compose Architect\n\n> XIVIZLEY, 115 Docker servisini görsel tuvalde sürükle-bırak bağlayıp tek SSH komutuyla VDS'e kuran, ücretsiz ve MIT lisanslı self-host mimarlık aracıdır.\n\nhttps://xivizley.com.tr",
+      "# XIVIZLEY — Visual Homelab & Docker Compose Architect\n\n> XIVIZLEY, 150 Docker servisini görsel tuvalde sürükle-bırak bağlayıp tek SSH komutuyla VDS'e kuran, ücretsiz ve MIT lisanslı self-host mimarlık aracıdır.\n\nhttps://xivizley.com.tr",
       {
         status: 200,
         headers: { 'Content-Type': 'text/plain; charset=utf-8' },

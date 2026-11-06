@@ -1,7 +1,7 @@
 // ============================================================
 // XIVIZLEY — Real VDS Smart Deployment Modal (Production Grade)
 // components/modals/DeployModal.tsx
-// Design: Obsidian Violet (Siyah - Mor Arası) & DIN 40719 Industrial Spec
+// Design: Obsidian Violet (Siyah - Mor Arası) & DIN EN 61082-1 Industrial Spec
 // ============================================================
 
 'use client';
@@ -386,7 +386,7 @@ export function DeployModal({ isOpen, onClose }: DeployModalProps) {
                   [P3-READY]
                 </span>
                 <span className="rounded-[2px] bg-[#090514] border border-[#2B1A42] px-1.5 py-0.5 text-[9px] font-mono text-[#8B7D9E]">
-                  DIN 40719
+                  DIN EN 61082-1
                 </span>
               </h2>
               <p className="text-xs font-mono text-[#8B7D9E] mt-0.5">
@@ -804,8 +804,8 @@ export function DeployModal({ isOpen, onClose }: DeployModalProps) {
                   </pre>
                   <p className="text-[11px] text-[#A19BAF] font-mono">
                     {isTr
-                      ? '[BİLGİ] 115 tekil uygulama, Cloud Suite, port çakışma radarı ve felaket kurtarma için terminalinizde tek tıkla çalıştırın.'
-                      : '[INFO] Launch 115 standalone apps, Cloud Suite, port collision radar and disaster recovery in your terminal with one command.'}
+                      ? '[BİLGİ] 150 tekil uygulama, Cloud Suite, port çakışma radarı ve felaket kurtarma için terminalinizde tek tıkla çalıştırın.'
+                      : '[INFO] Launch 150 standalone apps, Cloud Suite, port collision radar and disaster recovery in your terminal with one command.'}
                   </p>
                 </div>
               </div>
@@ -1195,7 +1195,7 @@ sudo ./deploy.sh --yes`}
                 </div>
               )}
 
-              {/* DIN 40719 Tabular Port Matrix */}
+              {/* DIN EN 61082-1 Tabular Port Matrix */}
               <div className="rounded-[2px] border border-[#2B1A42] bg-[#06030D] overflow-hidden">
                 <div className="grid grid-cols-12 bg-[#120A21] border-b border-[#2B1A42] px-3.5 py-2 text-[10px] font-bold text-[#8B7D9E] uppercase tracking-wider">
                   <span className="col-span-3">[PORT / PROTO]</span>
@@ -1246,9 +1246,9 @@ sudo ./deploy.sh --yes`}
                 </div>
               </div>
 
-              {/* DIN 40719 Industrial Pre-flight Checklist */}
+              {/* DIN EN 61082-1 Industrial Pre-flight Checklist */}
               <div className="rounded-[2px] border border-[#2B1A42] bg-[#120A21] p-3.5 space-y-2">
-                <span className="text-[11px] font-bold text-[#C084FC] block">[DIN 40719 INDUSTRIAL PRE-FLIGHT SPECS]</span>
+                <span className="text-[11px] font-bold text-[#C084FC] block">[DIN EN 61082-1 INDUSTRIAL PRE-FLIGHT SPECS]</span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-[#A19BAF]">
                   <div className="flex items-center gap-2">
                     <span className="text-emerald-400 font-bold">[PASS]</span>

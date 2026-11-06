@@ -399,8 +399,8 @@ curl -sSL https://xivizley.com.tr/durum | bash`}
         </h1>
         <p className="max-w-2xl mx-auto text-sm sm:text-base text-slate-400 leading-relaxed mb-6">
           {isTr
-            ? 'Kendi VDS veya ev sunucunuzu kurun, Docker ile 115 servisi yönetin, Cloudflare ile alan adı bağlayın ve verilerinizi güvence altına alın.'
-            : 'Deploy your own VDS or home server, manage 115 Docker services, connect domains with Cloudflare, and secure your data.'}
+            ? 'Kendi VDS veya ev sunucunuzu kurun, Docker ile 150 servisi yönetin, Cloudflare ile alan adı bağlayın ve verilerinizi güvence altına alın.'
+            : 'Deploy your own VDS or home server, manage 150 Docker services, connect domains with Cloudflare, and secure your data.'}
         </p>
 
         <div className="flex items-center justify-center gap-3 mb-8">

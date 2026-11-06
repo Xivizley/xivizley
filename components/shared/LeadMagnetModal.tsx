@@ -137,7 +137,7 @@ export function LeadMagnetModal() {
                     Docker Stack&apos;ini Sıfır Çakışmayla Kur 🛠️
                   </h2>
                   <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                    115 popüler servis için hazırlanmış hazır mimari konfigürasyonları, port rehberleri ve 1-tıkla kurulum betikleri gelen kutunda.
+                    150 popüler servis için hazırlanmış hazır mimari konfigürasyonları, port rehberleri ve 1-tıkla kurulum betikleri gelen kutunda.
                   </p>
                 </div>
 

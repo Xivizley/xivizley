@@ -3,7 +3,7 @@
 // ============================================================
 // XIVIZLEY — Master Auto-Backup & Disaster Recovery Studio
 // components/output/BackupStudioTab.tsx
-// Design: Obsidian Violet DIN 40719 Industrial Specification
+// Design: Obsidian Violet DIN EN 61082-1 Industrial Specification
 // ============================================================
 
 import React, { useState, useMemo } from 'react';
@@ -126,7 +126,7 @@ export function BackupStudioTab() {
 
   return (
     <div className="flex flex-col h-full overflow-y-auto p-4 space-y-4 bg-[#090514] text-[#F5F3FF] font-mono scrollbar-thin scrollbar-thumb-[#2B1A42]">
-      {/* ── Header Banner (DIN 40719 Spec) ── */}
+      {/* ── Header Banner (DIN EN 61082-1 Spec) ── */}
       <div className="rounded-[2px] border border-[#2B1A42] bg-[#120A21] p-3.5 shadow-xl">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-[2px] bg-[#06030D] text-[#C084FC] border border-[#2B1A42]">

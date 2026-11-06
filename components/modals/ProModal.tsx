@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// XIVIZLEY — VIP & Pro License Modal (Obsidian Violet DIN 40719)
+// XIVIZLEY — VIP & Pro License Modal (Obsidian Violet DIN EN 61082-1)
 // components/modals/ProModal.tsx
 // Features 1-Click Viral Share Growth Loop & VDS Free VIP Activation
 // ============================================================
@@ -51,15 +51,15 @@ export function ProModal({ isOpen, onClose, onOpenStoryCard }: ProModalProps) {
     {
       icon: Layers,
       title: isTr
-        ? '31+ Kurumsal Flagship Mimari'
+        ? '35+ Kurumsal Flagship Mimari'
         : isPt
-        ? '31+ Arquiteturas Flagship'
-        : '31+ Enterprise Flagship Stacks',
+        ? '35+ Arquiteturas Flagship'
+        : '35+ Enterprise Flagship Stacks',
       desc: isTr
-        ? 'Supabase, RustDesk, SearXNG, Nextcloud, Pterodactyl gibi 31 hazır stack ve 115 modül.'
+        ? 'Supabase, RustDesk, SearXNG, Nextcloud, Pterodactyl gibi 35 hazır stack ve 150 modül.'
         : isPt
-        ? '31 modelos prontos e 115 módulos, incluindo Supabase, RustDesk, SearXNG e Nextcloud.'
-        : '31 ready-to-deploy stacks and 115 modules including Supabase, RustDesk, SearXNG, and Nextcloud.',
+        ? '35 modelos prontos e 150 módulos, incluindo Supabase, RustDesk, SearXNG e Nextcloud.'
+        : '35 ready-to-deploy stacks and 150 modules including Supabase, RustDesk, SearXNG, and Nextcloud.',
     },
     {
       icon: Bot,
@@ -77,15 +77,15 @@ export function ProModal({ isOpen, onClose, onOpenStoryCard }: ProModalProps) {
     {
       icon: FileText,
       title: isTr
-        ? 'DIN 40719 Vektörel PDF Şartnamesi'
+        ? 'DIN EN 61082-1 Vektörel PDF Şartnamesi'
         : isPt
-        ? 'Especificação Técnica DIN 40719 PDF'
-        : 'DIN 40719 Vector PDF Blueprint',
+        ? 'Especificação Técnica DIN EN 61082-1 PDF'
+        : 'DIN EN 61082-1 Vector PDF Blueprint',
       desc: isTr
         ? '1970ler Tektronix mühendislik standardında resmi onaylı paftayı vektörel PDF olarak indirin.'
         : isPt
-        ? 'Baixe a planta técnica em PDF vetorial padrão industrial DIN 40719 com 1 clique.'
-        : 'Download official high-resolution vector PDF schematic sheets conforming to DIN 40719.',
+        ? 'Baixe a planta técnica em PDF vetorial padrão industrial DIN EN 61082-1 com 1 clique.'
+        : 'Download official high-resolution vector PDF schematic sheets conforming to DIN EN 61082-1.',
     },
     {
       icon: ShieldCheck,
@@ -123,7 +123,7 @@ export function ProModal({ isOpen, onClose, onOpenStoryCard }: ProModalProps) {
   // 1-Click Twitter / X Viral Growth Loop
   const handleShareTwitter = () => {
     const tweetText = encodeURIComponent(
-      'Linux VDS ve Homelab mimarimi @xivizley ile görsel olarak tasarladım! ⚡\n\n120 FPS tuval, port çakışma tespiti ve DIN 40719 PDF şartname indirme efsane olmuş.\n\nÜcretsiz deneyin: https://xivizley.com.tr'
+      'Linux VDS ve Homelab mimarimi @xivizley ile görsel olarak tasarladım! ⚡\n\n120 FPS tuval, port çakışma tespiti ve DIN EN 61082-1 PDF şartname indirme efsane olmuş.\n\nÜcretsiz deneyin: https://xivizley.com.tr'
     );
     window.open(`https://twitter.com/intent/tweet?text=${tweetText}`, '_blank', 'noopener,noreferrer');
 
@@ -177,7 +177,7 @@ export function ProModal({ isOpen, onClose, onOpenStoryCard }: ProModalProps) {
                 ? isTr
                   ? '👑 XIVIZLEY VIP LİSANSINIZ AKTİF'
                   : '👑 XIVIZLEY VIP LICENSE ACTIVE'
-                : 'XIVIZLEY VIP PROTOCOL // DIN 40719'}
+                : 'XIVIZLEY VIP PROTOCOL // DIN EN 61082-1'}
             </span>
           </div>
 
@@ -197,8 +197,8 @@ export function ProModal({ isOpen, onClose, onOpenStoryCard }: ProModalProps) {
           <p className="text-xs text-[#A19BAF] mt-2 leading-relaxed">
             {isPro
               ? isTr
-                ? 'Hesabınızda 31 kurumsal şablon, AI doktoru, DIN 40719 PDF şartname ve sınırsız dışa aktarma yetkileri devrede.'
-                : 'All 31 enterprise stacks, AI doctor, DIN 40719 PDF blueprints, and unlimited exports are active.'
+                ? 'Hesabınızda 35 kurumsal şablon, AI doktoru, DIN EN 61082-1 PDF şartname ve sınırsız dışa aktarma yetkileri devrede.'
+                : 'All 35 enterprise stacks, AI doctor, DIN EN 61082-1 PDF blueprints, and unlimited exports are active.'
               : isTr
               ? 'Kurumsal şablonlar, yapay zeka mimari analizi ve ömür boyu VIP lisansı tek pakette.'
               : 'Enterprise stacks, AI architecture analysis, and lifetime VIP perks in one unified tier.'}

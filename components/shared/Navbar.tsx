@@ -532,7 +532,7 @@ export function Navbar({
                 {onOpenBlueprint && (
                   <button
                     onClick={onOpenBlueprint}
-                    title={isTr ? "DIN 40719 Şartname & Teknik Çizim (PDF/Yazdır)" : isPt ? "Especificação Técnica DIN 40719 (PDF/Imprimir)" : "DIN 40719 Blueprint & Technical Spec (PDF/Print)"}
+                    title={isTr ? "DIN EN 61082-1 Şartname & Teknik Çizim (PDF/Yazdır)" : isPt ? "Especificação Técnica DIN EN 61082-1 (PDF/Imprimir)" : "DIN EN 61082-1 Blueprint & Technical Spec (PDF/Print)"}
                     className="flex items-center gap-1.5 rounded-[2px] p-1.5 px-2.5 text-[#C084FC] hover:bg-[#1E1235] hover:text-[#F5F3FF] transition-all font-mono text-[10px] font-bold tracking-tight border-l border-[#2B1A42] cursor-pointer"
                   >
                     <FileText className="h-3.5 w-3.5 text-[#C084FC]" />

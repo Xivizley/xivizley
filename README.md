@@ -15,7 +15,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 [![TÜBİTAK 2204-A](https://img.shields.io/badge/TÜBİTAK_2204--A-Lise_Araştırma_Projesi-8B5CF6?style=for-the-badge)](https://tubitak.gov.tr)
 [![Self-Hostable](https://img.shields.io/badge/Self--Hostable-Docker-2496ED?style=for-the-badge&logo=docker)](docker-compose.yml)
-[![Zero Telemetry](https://img.shields.io/badge/Zero_Telemetry-100%25_Private-22C55E?style=for-the-badge)](https://xivizley.com.tr/privacy)
+[![Zero External Tracking](https://img.shields.io/badge/Zero_External_Tracking-100%25_Client_Side-22C55E?style=for-the-badge)](https://xivizley.com.tr/privacy)
 
 [🌐 Canlı Kullan (xivizley.com.tr)](https://xivizley.com.tr) • [🎬 YouTube Videosu](https://www.youtube.com/watch?v=Ib8iss9eSEI) • [📚 Kullanım Rehberi](https://xivizley.com.tr/guide) • [✨ Hazır Şablonlar](https://xivizley.com.tr/templates)
 
@@ -25,7 +25,7 @@
 
 ## 💡 XIVIZLEY Nedir? / What is XIVIZLEY?
 
-**XIVIZLEY**, Linux VDS/VPS ve ev sunucularınız (Homelab) için **134 Docker servisini ve 33 hazır şablonu** görsel olarak tasarlamanızı, port çakışmalarını canlı tespit etmenizi ve tek bir SSH komutuyla sunucunuza dağıtmanızı sağlayan görsel mimari tasarım aracıdır. **Core is open source (MIT).**
+**XIVIZLEY**, Linux VDS/VPS ve ev sunucularınız (Homelab) için **150 Docker servisini ve 35 hazır şablonu** görsel olarak tasarlamanızı, port çakışmalarını canlı tespit etmenizi ve tek bir SSH komutuyla sunucunuza dağıtmanızı sağlayan görsel mimari tasarım aracıdır. **Core is open source (MIT).**
 
 Karmaşık `docker-compose.yml` dosyaları, çakışan portlar (örn. AdGuard vs Pi-hole port 53, Nginx vs Caddy port 80) ve terminal parametreleriyle vakit kaybetmek yerine; servisleri tuval üzerinde bağlayın, port çakışma giderici ile optimize edin ve üretime hazır Compose mimarinizi oluşturun.
 
@@ -44,7 +44,7 @@ cd xivizley
 docker compose up -d
 ```
 
-Tarayıcınızda `http://localhost:3000` adresini açarak tüm görsel tuvali, 134 modülü ve 33 şablonu tamamen yerel ve çevrimdışı kullanabilirsiniz!
+Tarayıcınızda `http://localhost:3000` adresini açarak tüm görsel tuvali, 150 modülü ve 35 şablonu tamamen yerel ve çevrimdışı kullanabilirsiniz!
 
 ---
 
@@ -52,9 +52,9 @@ Tarayıcınızda `http://localhost:3000` adresini açarak tüm görsel tuvali, 1
 
 - **Açık Kaynak Çekirdek (Core - MIT Lisansı):**
   - Görsel sürükle-bırak tasarım tuvali (React Flow).
-  - 134 adet Docker servis modülü ve 33 adet küratörlü hazır mimari şablonu.
+  - 150 adet Docker servis modülü ve 35 adet küratörlü hazır mimari şablonu.
   - Deterministik port çakışma tespit ve otomatik alternatif port öneri motoru.
-  - DIN 40719 endüstriyel teknik şartname ve PDF pafta üretimi.
+  - DIN EN 61082-1 endüstriyel teknik şartname ve PDF pafta üretimi.
   - Temiz Docker Compose YAML ve yerel `deploy.sh` script üreticisi.
 - **Kapalı / Barındırılan Altyapı (Private Infrastructure):**
   - Çok kullanıcılı bulut hesap oturumu ve uzaktan telemetri servisleri.
@@ -62,10 +62,10 @@ Tarayıcınızda `http://localhost:3000` adresini açarak tüm görsel tuvali, 1
 
 ---
 
-## 🔒 Güvenlik, Doğrulama & Sıfır Telemetri (Security & Zero Telemetry)
+## 🔒 Güvenlik, Doğrulama & Sıfır Dış Takip (Security & Zero External Tracking)
 
 Güvenlik iddialarında abartı yerine somut ve denetlenebilir teknik tedbirlere dayanıyoruz:
-- **%100 İstemci Taraflı Gizlilik (Zero Telemetry):** Tuvalde oluşturduğunuz mimariler ve port haritaları yalnızca tarayıcınızda işlenir. Merkezi sunuculara gizli veri, izleme veya log iletilmez.
+- **%100 İstemci Taraflı Gizlilik (Zero External Tracking):** Tuvalde oluşturduğunuz mimariler ve port haritaları yalnızca tarayıcınızda işlenir. Merkezi sunuculara gizli veri, izleme veya log iletilmez.
 - **Doğrulanabilir Dağıtım Betiği (Verifiable Shell Script):** Dağıtım modalındaki `🔍 Betiği İncele (Raw Script)` bağlantısı ile üretilen betiğin ham halini çalıştırmadan önce tarayıcınızda satır satır denetleyebilirsiniz.
 - **Saf Compose Alternatifi:** Terminale komut yapıştırmak istemeyen sistem yöneticileri için, tek satır komut yerine doğrudan saf `docker-compose.yml` çıktısı veya ZIP arşivi indirme seçeneği sunulur.
 - **Katalog Doğrulaması (Whitelisting):** Paylaşılan tasarım URL'leri üzerinden üretilen betiklerde yalnızca yerleşik katalogda (`MODULE_CATALOG`) tanımlı imajlar ve onaylı portlar kabul edilir. URL parametrelerinden `privileged: true`, `network_mode: host`, keyfi `command`/`entrypoint` veya tehlikeli mount'lar (`/var/run/docker.sock`, `/:/host`) üretilemez.
@@ -77,7 +77,7 @@ Güvenlik iddialarında abartı yerine somut ve denetlenebilir teknik tedbirlere
 ## ✨ Öne Çıkan Özellikler / Key Features
 
 ### 🎨 1. Görsel Sürükle-Bırak Tuval & Otomatik Düzen (ReactFlow)
-- **134 Popüler Docker Modülü:** Ağ, güvenlik, medya, yapay zeka, veri ve oyun sunucusu modüllerini tuvale sürükleyin.
+- **150 Popüler Docker Modülü:** Ağ, güvenlik, medya, yapay zeka, veri ve oyun sunucusu modüllerini tuvale sürükleyin.
 - **Akıllı Otomatik Hizalama (Auto-Layout):** Modülleri katmanlı mimari düzenine (İşletim Sistemi ➔ Proxy ➔ Uygulamalar ➔ Veritabanları) tek tıkla hizalayın.
 - **Renk Kodlu Kategoriler:** Her konteyner kategorisi özel teknik renk kodları ve standart ikonlarla görselleştirilir.
 
@@ -86,8 +86,8 @@ Güvenlik iddialarında abartı yerine somut ve denetlenebilir teknik tedbirlere
 - **Akıllı Alternatif Port Önerisi (`PORT_ALTERNATIVES`):** Kullanıştaki moda göre çakışan portlara otomatik alternatif port atar.
 - **🩺 AI Doktor (`AIDoctorModal`):** Eksik veritabanı bağımlılıklarını (örn: Umami veya Penpot için PostgreSQL) ve port çakışmalarını tespit edip düzeltir.
 
-### ⚡ 3. 33 Adet Hazır Mimari Şablonu (Curated Stacks)
-- Supabase, RustDesk, SearXNG, Pterodactyl, Nextcloud, Immich, Minecraft PaperMC ve medya otomasyonu dahil 33 üretime hazır stack.
+### ⚡ 3. 35 Adet Hazır Mimari Şablonu (Curated Stacks)
+- Supabase, RustDesk, SearXNG, Pterodactyl, Nextcloud, Immich, Minecraft PaperMC ve medya otomasyonu dahil 35 üretime hazır stack.
 - **Arama & Kategori Filtreli Modal (`QuickStackPacksModal`):** `Tümü`, `Medya`, `Güvenlik`, `AI & Otomasyon`, `Web & Veri`, `Ofis & Araçlar`, `Oyun` filtreleri.
 - **Paket Vitrini:** 
   1. 🎬 **4K Medya & Sinema Paketi:** Jellyfin + qBittorrent + Radarr + Sonarr + FileBrowser
@@ -119,7 +119,7 @@ Güvenlik iddialarında abartı yerine somut ve denetlenebilir teknik tedbirlere
 
 ---
 
-## 🛠️ Desteklenen Servis Kataloğu (134 Modül & 33 Şablon)
+## 🛠️ Desteklenen Servis Kataloğu (150 Modül & 35 Şablon)
 
 | Kategori | Modüller / Servisler |
 | :--- | :--- |

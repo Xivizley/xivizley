@@ -3,7 +3,7 @@
 // ============================================================
 // XIVIZLEY — Ready Stacks Hub (/templates)
 // Design System: Obsidian Violet (#090514 Void Obsidian / #120A21 Deep Amethyst)
-// Specification: DIN 40719 Industrial Hardware Spec Sheet
+// Specification: DIN EN 61082-1 Industrial Hardware Spec Sheet
 // Typography: Newsreader (Editorial Serif) + JetBrains Mono (Technical Mono)
 // app/templates/TemplatesClient.tsx
 // ============================================================
@@ -278,7 +278,7 @@ export function TemplatesClient() {
             <span>{isTr ? 'HAZIR MİMARİLER' : 'PRE-BUILT ARCHITECTURES'}</span>
           </div>
           <div className="flex items-center gap-3 text-[#8B7D9E]">
-            <span className="hidden sm:inline">DIN 40719 SPEC</span>
+            <span className="hidden sm:inline">DIN EN 61082-1 SPEC</span>
             <span className="hidden sm:inline text-[#3B255E]">·</span>
             <div className="flex items-center gap-1.5 text-[#10B981]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" aria-hidden="true" />
@@ -425,7 +425,7 @@ export function TemplatesClient() {
           </div>
           <div className="flex items-center gap-2">
             <div className="h-1.5 w-1.5 rounded-full bg-[#10B981]" aria-hidden="true" />
-            <span className="text-[#8B7D9E] tracking-wider uppercase">DIN 40719 INDUSTRIAL SPEC</span>
+            <span className="text-[#8B7D9E] tracking-wider uppercase">DIN EN 61082-1 INDUSTRIAL SPEC</span>
           </div>
         </div>
 
@@ -536,7 +536,7 @@ export function TemplatesClient() {
                         />
                         <div className="relative z-10 flex items-center justify-between font-mono text-[9px] text-[#8B7D9E]">
                           <span className="text-[#C084FC] font-semibold">{`// SCHEMATIC : ${tplCode}`}</span>
-                          <span className="text-[#5E4E77]">+ DIN 40719 +</span>
+                          <span className="text-[#5E4E77]">+ DIN EN 61082-1 +</span>
                         </div>
                         <div className="relative z-10 flex flex-wrap items-center justify-center gap-1.5 py-1">
                           {tpl.moduleIds.slice(0, 3).map((mId) => (
@@ -706,7 +706,7 @@ export function TemplatesClient() {
               <div className="flex items-center gap-2 mb-2 font-mono text-[10px] tracking-[0.18em] text-[#C084FC] uppercase font-bold">
                 <span>⚡ {isTr ? 'RESMİ ALTYAPI SPONSORLARIMIZ' : 'OFFICIAL INFRASTRUCTURE SPONSORS'}</span>
                 <span className="text-[#3B255E]">//</span>
-                <span className="text-[#8B7D9E]">DIN 40719 SPEC</span>
+                <span className="text-[#8B7D9E]">DIN EN 61082-1 SPEC</span>
               </div>
               <h3
                 className="text-2xl sm:text-3xl font-bold text-[#F5F3FF] tracking-tight"

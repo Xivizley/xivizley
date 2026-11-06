@@ -165,7 +165,7 @@ export async function sendNewsletterWelcomeEmail(email: string) {
         <p>Aramıza katıldığın için çok mutluyuz! Artık en yeni Docker Compose şablonları, port çakışması optimizasyonları ve homelab rehberleri doğrudan gelen kutuna gelecek.</p>
         
         <div class="feature">
-          <strong style="color: #38bdf8;">🖥️ 115 Popüler Modül:</strong>
+          <strong style="color: #38bdf8;">🖥️ 150 Popüler Modül:</strong>
           <span style="color: #94a3b8;"> AdGuard, Nextcloud, Plex, Jellyfin, Vaultwarden ve daha fazlasını sürükle-bırak tasarla.</span>
         </div>
         <div class="feature">

@@ -36,7 +36,7 @@ export default function TemplatesPage() {
           <div className="flex items-center gap-2">
             <span className="text-[#C084FC] font-semibold">XIVIZLEY</span>
             <span className="text-[#3B255E]">//</span>
-            <span>DIN 40719 INDUSTRIAL SPEC</span>
+            <span>DIN EN 61082-1 INDUSTRIAL SPEC</span>
             <span className="text-[#3B255E]">·</span>
             <span>{new Date().getFullYear()}</span>
           </div>

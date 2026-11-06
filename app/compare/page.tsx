@@ -1,7 +1,7 @@
 // ============================================================
 // XIVIZLEY — Comprehensive Platform Comparison (/compare)
 // XIVIZLEY vs Coolify vs Portainer vs CasaOS
-// DIN 40719 Engineering Spec & Obsidian Violet Design System
+// DIN EN 61082-1 Engineering Spec & Obsidian Violet Design System
 // ============================================================
 
 import React from 'react';
@@ -78,7 +78,7 @@ const COMPARISON_SECTIONS: {
       {
         feature: 'Görsel Sürükle-Bırak Tuvali',
         description: 'React Flow tabanlı interaktif düğümler ve yönlü bağlantı kenarları ile altyapı tasarımı.',
-        xivizley: 'Evet (115 Modül, React Flow)',
+        xivizley: 'Evet (150 Modül, React Flow)',
         xivizleyBadge: 'Dahili Görsel Tuval',
         coolify: 'Hayır (Form ve Dashboard)',
         portainer: 'Hayır (Form ve Liste)',
@@ -94,10 +94,10 @@ const COMPARISON_SECTIONS: {
         casaos: 'Kısmi (Port girişi uyarısı)',
       },
       {
-        feature: 'DIN 40719 Mühendislik Paftası Çıktısı',
+        feature: 'DIN EN 61082-1 Mühendislik Paftası Çıktısı',
         description: 'Endüstri standardında vektörel PDF ve yazdırılabilir CAD mimari şeması oluşturma.',
         xivizley: 'Evet (Tek Tık Vektörel PDF)',
-        xivizleyBadge: 'DIN 40719 Standardı',
+        xivizleyBadge: 'DIN EN 61082-1 Standardı',
         coolify: 'Hayır',
         portainer: 'Hayır',
         casaos: 'Hayır',
@@ -230,7 +230,7 @@ const FAQ_ITEMS = [
   {
     question: 'XIVIZLEY nedir ve Coolify veya Portainer\'dan temel farkı nedir?',
     answer:
-      `${PLATFORM_STATS.taglineTr} Coolify bir PaaS (Heroku alternatifi), Portainer ise çalışan konteynerleri denetleyen bir yönetim panelidir. XIVIZLEY sunucunuzda hiçbir arka plan kaynağı (0 MB RAM) tüketmez; mimarinizi tarayıcınızda tasarlar, port çakışmalarını önceden çözer, DIN 40719 paftasını üretir ve doğrudan VDS'inize temiz Docker Compose mimarisi olarak kurar.`,
+      `${PLATFORM_STATS.taglineTr} Coolify bir PaaS (Heroku alternatifi), Portainer ise çalışan konteynerleri denetleyen bir yönetim panelidir. XIVIZLEY sunucunuzda hiçbir arka plan kaynağı (0 MB RAM) tüketmez; mimarinizi tarayıcınızda tasarlar, port çakışmalarını önceden çözer, DIN EN 61082-1 paftasını üretir ve doğrudan VDS'inize temiz Docker Compose mimarisi olarak kurar.`,
   },
   {
     question: 'Port çakışması (Port Conflict) nedir ve XIVIZLEY bunu nasıl engeller?',
@@ -238,9 +238,9 @@ const FAQ_ITEMS = [
       'Birden fazla Docker servisi aynı host portunu (örneğin port 80 veya port 443) dinlemeye çalıştığında Docker başlatma hatası verir. XIVIZLEY, tuvale sürüklediğiniz servislerin kullandığı portları anlık olarak tarar. İki servis çakıştığında tuvalde kırmızı uyarı verir ve çakışan servis için boş bir alternatif port (örneğin 80 ➔ 8080) önererek çakışmayı tek tıkla çözer.',
   },
   {
-    question: 'DIN 40719 mühendislik paftası nedir ve nerede kullanılır?',
+    question: 'DIN EN 61082-1 mühendislik paftası nedir ve nerede kullanılır?',
     answer:
-      'DIN 40719, endüstriyel sistemlerin ve elektrik/ağ şemalarının dokümantasyonu için uluslararası kabul görmüş bir mühendislik standardıdır. XIVIZLEY, çizdiğiniz sunucu mimarisini donanım ayak izi, port yönlendirme tablosu ve revizyon geçmişi içeren profesyonel bir vektörel PDF paftasına dönüştürür. Bu pafta kurumsal dokümantasyon, denetimler ve arşivleme için idealdir.',
+      'DIN EN 61082-1, endüstriyel sistemlerin ve elektrik/ağ şemalarının dokümantasyonu için uluslararası kabul görmüş bir mühendislik standardıdır. XIVIZLEY, çizdiğiniz sunucu mimarisini donanım ayak izi, port yönlendirme tablosu ve revizyon geçmişi içeren profesyonel bir vektörel PDF paftasına dönüştürür. Bu pafta kurumsal dokümantasyon, denetimler ve arşivleme için idealdir.',
   },
   {
     question: 'XIVIZLEY sunucuma kurulmak zorunda mı, ek kaynak tüketir mi?',
@@ -327,7 +327,7 @@ export default function ComparePage() {
         <section className="text-center mb-16 md:mb-24">
           <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-xs font-mono font-medium text-violet-300 mb-6 backdrop-blur-sm">
             <Sparkles className="h-3.5 w-3.5 text-violet-400" />
-            <span>DIN 40719 SPEC // ALTYAPI KARŞILAŞTIRMA MATRİSİ</span>
+            <span>DIN EN 61082-1 SPEC // ALTYAPI KARŞILAŞTIRMA MATRİSİ</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight mb-6">
@@ -338,7 +338,7 @@ export default function ComparePage() {
           </h1>
 
           <p className="mx-auto max-w-3xl text-base sm:text-lg text-[#A19BAF] leading-relaxed mb-8">
-            <strong className="text-white font-medium">XIVIZLEY</strong>, 115 Docker servisini görsel tuvalde
+            <strong className="text-white font-medium">XIVIZLEY</strong>, 150 Docker servisini görsel tuvalde
             sürükle-bırak bağlayıp tek SSH komutuyla VDS&apos;e kuran, ücretsiz ve MIT lisanslı self-host
             mimarlık aracıdır. Hangi aracın projenize en uygun olduğunu belirlemek için aşağıdaki kapsamlı
             mühendislik matrisini inceleyin.
@@ -357,7 +357,7 @@ export default function ComparePage() {
               className="inline-flex items-center gap-2 rounded-xl border border-[#2B1A42] bg-[#0E091E] px-6 py-3 font-medium text-violet-200 hover:border-violet-500/40 hover:bg-[#150D2E] transition-all"
             >
               <Boxes className="h-4 w-4 text-violet-400" />
-              <span>31+ Hazır Şablon</span>
+              <span>35+ Hazır Şablon</span>
             </Link>
             <a
               href="https://forum.xivizley.com.tr"
@@ -386,7 +386,7 @@ export default function ComparePage() {
             </h2>
             <p className="text-xs font-mono text-violet-300 mb-3">Görsel Mimarlık & 1-Click VDS</p>
             <p className="text-xs text-[#A19BAF] leading-relaxed">
-              Sürükle-bırak tuval, deterministik port çakışma motoru, DIN 40719 vektörel paftası ve sıfır sunucu yükü (0 MB RAM).
+              Sürükle-bırak tuval, deterministik port çakışma motoru, DIN EN 61082-1 vektörel paftası ve sıfır sunucu yükü (0 MB RAM).
             </p>
           </div>
 
@@ -421,7 +421,7 @@ export default function ComparePage() {
             <div>
               <h2 className="text-2xl font-bold text-white">Detaylı Özellik Karşılaştırma Matrisi</h2>
               <p className="text-xs font-mono text-[#A19BAF] mt-1">
-                DIN 40719 STANDARTLARI DOĞRULANMIŞTIR // SÜRÜM 4.2
+                DIN EN 61082-1 STANDARTLARI DOĞRULANMIŞTIR // SÜRÜM 4.2
               </p>
             </div>
             <div className="flex items-center gap-2 text-xs font-mono text-violet-300">
@@ -600,7 +600,7 @@ export default function ComparePage() {
                 </div>
               </div>
               <p className="text-sm text-[#A19BAF] leading-relaxed mb-4">
-                XIVIZLEY, altyapı hazırlık aşamasındaki tüm karmaşıklığı ortadan kaldırır. 115 Docker servisini
+                XIVIZLEY, altyapı hazırlık aşamasındaki tüm karmaşıklığı ortadan kaldırır. 150 Docker servisini
                 birbiriyle bağlayıp (örneğin Nextcloud ➔ PostgreSQL ➔ Redis ➔ Nginx Proxy Manager) port çakışmalarını
                 ve ağ bağımlılıklarını önceden test etmenizi sağlar. Sunucunuzda hiçbir arka plan servisi çalıştırmaz;
                 üretime hazır standart Docker Compose ve tek tıkla VDS dağıtım betiği sunar.
@@ -612,7 +612,7 @@ export default function ComparePage() {
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-3.5 w-3.5 text-violet-400 shrink-0" />
-                  <span>DIN 40719 standartlarında vektörel PDF CAD çıktısı</span>
+                  <span>DIN EN 61082-1 standartlarında vektörel PDF CAD çıktısı</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-3.5 w-3.5 text-violet-400 shrink-0" />
@@ -738,7 +738,7 @@ export default function ComparePage() {
                 <span>XIVIZLEY Tercih Edin Eğer:</span>
               </h3>
               <p className="text-xs text-[#A19BAF] leading-relaxed">
-                VDS veya sunucunuzun RAM&apos;ini boşa harcamadan (0 MB ek yük) 115 popüler servisi görsel olarak
+                VDS veya sunucunuzun RAM&apos;ini boşa harcamadan (0 MB ek yük) 150 popüler servisi görsel olarak
                 birbirine bağlamak, port çakışmalarını önceden görüp çözmek ve tek bir SSH komutuyla tertemiz bir
                 altyapı ayağa kaldırmak istiyorsanız.
               </p>
@@ -822,7 +822,7 @@ export default function ComparePage() {
             Kendi Docker Mimarini Görsel Olarak Çizmeye Başla
           </h2>
           <p className="text-xs sm:text-base text-violet-200/90 max-w-2xl mx-auto mb-8 leading-relaxed font-mono">
-            Kayıt olmak veya sunucunuza kalıcı program kurmak zorunda değilsiniz. Tarayıcınızda 115 Docker
+            Kayıt olmak veya sunucunuza kalıcı program kurmak zorunda değilsiniz. Tarayıcınızda 150 Docker
             servisini tuvalde bağlayın, tek SSH komutuyla VDS&apos;inize dağıtın.
           </p>
 
@@ -838,7 +838,7 @@ export default function ComparePage() {
               href="/templates"
               className="inline-flex items-center gap-2 rounded-2xl border border-[#2B1A42] bg-[#090514] px-8 py-4 font-medium text-violet-200 hover:border-violet-500/50 hover:bg-[#120a22] transition-all"
             >
-              <span>Küratörlü Şablonlar (31+)</span>
+              <span>Küratörlü Şablonlar (35+)</span>
             </Link>
           </div>
         </section>

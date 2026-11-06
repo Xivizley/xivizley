@@ -2,7 +2,7 @@
 
 // ============================================================
 // XIVIZLEY — Pro Studio Cyber Edge Component
-// Obsidian Violet & DIN 40719 Industrial Hardware Spec
+// Obsidian Violet & DIN EN 61082-1 Industrial Hardware Spec
 // Flowing electric violet data lines with SVG photon particles
 // ============================================================
 

@@ -65,7 +65,7 @@ export default function AboutPage() {
         {/* Stats Row */}
         <div className="mb-16 grid grid-cols-2 md:grid-cols-4 gap-4 p-6 rounded-3xl border border-slate-800 bg-[#0e111a]">
           <div className="p-3 text-center">
-            <p className="text-3xl font-black text-indigo-400">115</p>
+            <p className="text-3xl font-black text-indigo-400">150</p>
             <p className="text-xs text-slate-400 mt-1">{isTr ? 'Docker Modülü' : 'Docker Modules'}</p>
           </div>
           <div className="p-3 text-center">

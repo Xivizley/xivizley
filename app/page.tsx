@@ -1,6 +1,6 @@
 // ============================================================
 // XIVIZLEY — Industrial System Schematic Landing Page
-// Art Direction: DIN 40719 Hardware Spec Sheet (Obsidian Violet)
+// Art Direction: DIN EN 61082-1 Hardware Spec Sheet (Obsidian Violet)
 // Palette: Siyah - Mor Arası (#090514 Void Obsidian / #120A21 Deep Amethyst)
 // Font: Newsreader (editorial serif) + JetBrains Mono (technical mono)
 // app/page.tsx
@@ -305,7 +305,7 @@ export default function LandingPage() {
                   {[
                     { param: 'PLATFORM.TYPE', value: isTr ? 'Görsel Docker Mimarlık Tuvali' : 'Visual Docker Architecture Canvas', unit: '—' },
                     { param: 'MODULE.COUNT', value: `${PLATFORM_STATS.totalModules}`, unit: isTr ? 'Docker Modülü' : 'Docker Modules' },
-                    { param: 'TEMPLATE.COUNT', value: '31', unit: isTr ? 'Hazır Şablon' : 'Curated Stacks' },
+                    { param: 'TEMPLATE.COUNT', value: '35', unit: isTr ? 'Hazır Şablon' : 'Curated Stacks' },
                     { param: 'DEPLOY.METHOD', value: 'curl -sSL ... | bash', unit: isTr ? '1-Tıkla SSH' : '1-Click SSH' },
                     { param: 'LICENSE', value: 'MIT Open Source', unit: isTr ? '100% Ücretsiz' : '100% Free' },
                     { param: 'INFRA.PARTNER', value: 'OWEB TR & Hosting.com.tr', unit: '10 Gbps NVMe' },
@@ -342,7 +342,7 @@ export default function LandingPage() {
                     className="xv-btn-secondary inline-flex items-center gap-2 px-7 py-3 font-mono text-[13px] font-semibold tracking-wide text-[#F5F3FF] border border-[#2B1A42] hover:border-[#8B5CF6] hover:text-[#C084FC] transition-colors bg-[#120A21]/60"
                     style={{ borderRadius: '2px' }}
                   >
-                    {isTr ? '31 Hazır Şablonu İncele' : isPt ? 'Ver 31 Stacks Prontas' : 'Explore 31 Stacks'}
+                    {isTr ? '35 Hazır Şablonu İncele' : isPt ? 'Ver 35 Stacks Prontas' : 'Explore 35 Stacks'}
                   </Link>
                   <a
                     href="https://github.com/Xivizley/xivizley"
@@ -570,11 +570,11 @@ export default function LandingPage() {
                 },
                 {
                   code: 'F-003',
-                  title: isTr ? '31 Hazır Şablon Marketi' : '31 Curated Stack Templates',
+                  title: isTr ? '35 Hazır Şablon Marketi' : '35 Curated Stack Templates',
                   desc: isTr
                     ? 'Ollama AI, Minecraft, Nextcloud, Jellyfin 4K, Palworld, CS2 ve WordPress mimarilerini tek tıkla tuvalinize yükleyin.'
                     : 'Load Ollama AI, Minecraft, Nextcloud, Jellyfin 4K, Palworld, CS2, and WordPress stacks to your canvas with one click.',
-                  metric: '31 stacks',
+                  metric: '35 stacks',
                   link: '/templates',
                 },
                 {
@@ -852,7 +852,7 @@ export default function LandingPage() {
               <ul className="space-y-2">
                 {[
                   { href: '/architect', label: isTr ? 'Görsel Tuval (Architect)' : 'Visual Canvas' },
-                  { href: '/templates', label: isTr ? '31 Hazır Şablon' : '31 Stack Templates' },
+                  { href: '/templates', label: isTr ? '35 Hazır Şablon' : '35 Stack Templates' },
                   { href: '/feed', label: isTr ? 'Topluluk Mimarileri' : 'Community Feed' },
                   { href: '/architect?tool=domain', label: isTr ? 'Domain & SSL Sihirbazı' : 'Domain & SSL Wizard' },
                 ].map((l) => (
