@@ -19,7 +19,13 @@ import {
   type Connection,
 } from 'reactflow';
 import { nanoid } from 'nanoid';
-import { detectConflicts, nodeHasConflict, getNodeConflicts } from '@/lib/engines/conflictDetector';
+import {
+  detectConflicts,
+  nodeHasConflict,
+  getNodeConflicts,
+  autoResolveConflicts,
+  type AutoResolveResult,
+} from '@/lib/engines/conflictDetector';
 import { MODULE_CATALOG } from '@/lib/data/modules';
 import { PREDEFINED_TEMPLATES, STACK_TEMPLATES } from '@/lib/data/templates';
 import { toServiceName } from '@/lib/generators/composeGenerator';
@@ -80,6 +86,11 @@ interface ArchitectState {
   selectedNodeId: string | null;
   isPanelOpen: boolean;
 
+  // Simulation Radar State
+  isSimulating: boolean;
+  toggleSimulation: () => void;
+  setSimulation: (active: boolean) => void;
+
   // ── History Actions ──
   recordSnapshot: () => void;
   undo: () => void;
@@ -112,6 +123,7 @@ interface ArchitectState {
   deleteSelected: () => void;
   updateNodeLabel: (nodeId: string, label: string) => void;
   updatePortOverride: (nodeId: string, internalPort: number, newHostPort: number) => void;
+  autoResolveAllConflicts: () => AutoResolveResult;
   updateEnvOverride: (nodeId: string, key: string, value: string) => void;
   updateAdvancedSetting: (nodeId: string, key: string, value: unknown) => void;
   updateCustomContainer: (nodeId: string, updates: Partial<ModuleNodeData>) => void;
@@ -211,6 +223,15 @@ export const useArchitectStore = create<ArchitectState>()(
     snapToGrid: true,
     selectedNodeId: null,
     isPanelOpen: true,
+    isSimulating: false,
+
+    toggleSimulation() {
+      set((state) => ({ isSimulating: !state.isSimulating }));
+    },
+
+    setSimulation(active: boolean) {
+      set({ isSimulating: active });
+    },
 
     // ── History Actions ──
 
@@ -554,6 +575,32 @@ export const useArchitectStore = create<ArchitectState>()(
       });
       const { conflictMap, updatedNodes } = recomputeConflicts(rawNodes);
       set({ nodes: updatedNodes, conflictMap });
+    },
+
+    autoResolveAllConflicts() {
+      pushHistory(get, set);
+      const { nodes, edges } = get();
+      const result = autoResolveConflicts(nodes, edges);
+
+      const rawNodes = nodes.map((node) => {
+        const overrides = result.resolvedOverrides[node.id];
+        const customPorts = result.customPortOverrides?.[node.id];
+
+        if (!overrides && !customPorts) return node;
+
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            portOverrides: overrides ? { ...node.data.portOverrides, ...overrides } : node.data.portOverrides,
+            customPorts: customPorts || node.data.customPorts,
+          },
+        };
+      });
+
+      const { conflictMap, updatedNodes } = recomputeConflicts(rawNodes);
+      set({ nodes: updatedNodes, conflictMap });
+      return result;
     },
 
     updateEnvOverride(nodeId, key, value) {

@@ -24,9 +24,11 @@ import { SecurityAuditTab } from './SecurityAuditTab';
 import { BackupStudioTab } from './BackupStudioTab';
 import { downloadProjectZip } from '@/lib/generators/zipGenerator';
 import { generateCaddyfile, generateNginxConf } from '@/lib/generators/proxyGenerator';
-import { exportToDockerRunCLI, exportToKubernetesYAML, exportToAnsiblePlaybook } from '@/lib/utils/multiFormatExporter';
+import { exportToDockerRunCLI, exportToKubernetesYAML, exportToAnsiblePlaybook, exportToHelmChart } from '@/lib/utils/multiFormatExporter';
 import { MinecraftConfigStudio } from './MinecraftConfigStudio';
 import { TurnstileWidget } from '@/components/shared/TurnstileWidget';
+import { calculateHardwareEstimate } from '@/lib/utils/hardwareEstimator';
+import { isCommercialAdsDisabled } from '@/lib/utils/adPolicy';
 
 // ─── Copy Button ─────────────────────────────────────────────
 
@@ -223,7 +225,7 @@ function EmailExportCard({
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="ornek@domain.com"
+            placeholder={isTr ? 'ornek@alanadi.com' : isPt ? 'exemplo@dominio.com' : 'you@domain.com'}
             className="flex-1 rounded-[2px] border border-[#2B1A42] bg-[#06030D] px-2.5 py-1.5 text-xs text-[#F5F3FF] placeholder-[#8B7D9E] font-mono focus:border-[#8B5CF6] focus:outline-none"
           />
           <button
@@ -402,7 +404,9 @@ function NodeConfigPanel() {
           <div>
             <h3 className="text-sm font-semibold text-[#F5F3FF]">{selectedNode.data.label}</h3>
             <p className="text-[10px] text-[#8B7D9E] font-mono mt-0.5">
-              {moduleDef.dockerImage}:{moduleDef.defaultTag}
+              {moduleDef.dockerImage
+                ? `${moduleDef.dockerImage}${moduleDef.defaultTag ? `:${moduleDef.defaultTag}` : ''}`
+                : 'None (Host Runtime)'}
             </p>
           </div>
         </div>
@@ -824,9 +828,16 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
     [nodes, edges]
   );
 
-  const [multiFormat, setMultiFormat] = useState<'docker-run' | 'k8s' | 'ansible'>('docker-run');
+  const hardwareEstimate = useMemo(() => calculateHardwareEstimate(nodes, lang), [nodes, lang]);
+  const recommendedRamGB = useMemo(
+    () => Math.max(2, Math.ceil(hardwareEstimate.totalRamMB / 1024)),
+    [hardwareEstimate.totalRamMB]
+  );
+
+  const [multiFormat, setMultiFormat] = useState<'docker-run' | 'k8s' | 'helm' | 'ansible'>('k8s');
   const dockerRunCode = useMemo(() => exportToDockerRunCLI(nodes), [nodes]);
   const k8sCode = useMemo(() => exportToKubernetesYAML(nodes), [nodes]);
+  const helmCode = useMemo(() => exportToHelmChart(nodes), [nodes]);
   const ansibleCode = useMemo(() => exportToAnsiblePlaybook(nodes), [nodes]);
 
   return (
@@ -834,22 +845,30 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
       className={cn(
         'flex flex-col border-l border-[#2B1A42] bg-[#0D0719]/95 backdrop-blur-md',
         'transition-all duration-300',
-        isOpen ? 'w-full sm:w-[340px] lg:w-[380px] xl:w-[410px]' : 'w-10',
+        isOpen
+          ? 'fixed inset-y-0 right-0 z-50 w-full sm:relative sm:z-auto sm:inset-auto sm:w-[340px] lg:w-[380px] xl:w-[410px]'
+          : 'hidden sm:flex sm:w-10',
       )}
     >
-      {/* Toggle button */}
-      <button
-        onClick={onToggle}
-        className="flex items-center justify-center border-b border-[#2B1A42] p-2 text-[#8B7D9E] hover:text-[#C084FC] transition-colors shrink-0"
-        aria-label={isOpen ? t('architect.inspector.collapsePanel') : t('architect.inspector.expandPanel')}
-      >
-        {isOpen ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-      </button>
+      {/* Toggle button & mobile close header */}
+      <div className="flex items-center justify-between border-b border-[#2B1A42] p-2 shrink-0 bg-[#090514]/60">
+        <span className="text-xs font-mono font-bold text-[#F5F3FF] sm:hidden px-2">
+          {isTr ? 'Yapılandırma & Kod Paneli' : 'Inspector & Output Panel'}
+        </span>
+        <button
+          onClick={onToggle}
+          className="flex items-center justify-center p-1 text-[#8B7D9E] hover:text-[#C084FC] transition-colors rounded-[2px] ml-auto"
+          aria-label={isOpen ? t('architect.inspector.collapsePanel') : t('architect.inspector.expandPanel')}
+        >
+          <span className="sm:hidden text-xs font-mono mr-1">{isTr ? 'Kapat' : 'Close'}</span>
+          {isOpen ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+        </button>
+      </div>
 
       {isOpen && (
         <>
           {/* Tabs */}
-          <div className="flex border-b border-[#2B1A42] shrink-0 overflow-x-auto scrollbar-none bg-[#090514]">
+          <div className="grid grid-cols-3 border-b border-[#2B1A42] shrink-0 bg-[#090514]">
             {(
               [
                 { id: 'compose'      as Tab, label: 'Compose',                                             icon: FileCode2 },
@@ -867,7 +886,7 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
                 key={id}
                 onClick={() => setActiveTab(id)}
                 className={cn(
-                  'flex flex-1 items-center justify-center gap-1.5 px-2 py-2.5 text-xs font-semibold whitespace-nowrap transition-all font-mono',
+                  'flex items-center justify-center gap-1 px-1.5 py-2 text-[11px] font-semibold whitespace-nowrap transition-all font-mono',
                   activeTab === id
                     ? 'border-b-2 border-[#8B5CF6] text-[#F5F3FF] bg-[#120A21]'
                     : 'border-b-2 border-transparent text-[#8B7D9E] hover:text-[#C084FC]',
@@ -886,7 +905,7 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
             {/* Compose Tab */}
             {activeTab === 'compose' && (
               <div className="p-4 pb-8 space-y-3">
-                <div className="flex items-center justify-between">
+                <div className="space-y-2">
                   <h3 className="text-sm font-semibold text-[#F5F3FF] font-mono">docker-compose.yml</h3>
                   <div className="flex flex-wrap gap-1.5">
                     <CopyButton text={dockerCompose} />
@@ -909,8 +928,21 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
                   </div>
                 </div>
                 {conflictCount > 0 && (
-                  <div className="rounded-[2px] border border-red-500/40 bg-red-950/30 px-3 py-2 text-xs font-mono text-red-400">
-                    ⚠️ {conflictCount} {t('architect.inspector.conflictWarning')}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 rounded-[2px] border border-red-500/40 bg-red-950/30 px-3 py-2 text-xs font-mono text-red-400">
+                    <span className="flex items-center gap-1.5">
+                      <span>⚠️</span>
+                      <span>{conflictCount} {t('architect.inspector.conflictWarning')}</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        useArchitectStore.getState().autoResolveAllConflicts();
+                      }}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-mono font-semibold rounded-[2px] bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition-colors shrink-0 shadow-sm"
+                    >
+                      <span>⚡</span>
+                      <span>{isTr ? 'Çakışmaları Deterministik Çöz' : isPt ? 'Resolver Conflitos' : 'Auto-Resolve Conflicts'}</span>
+                    </button>
                   </div>
                 )}
                 <EmailExportCard
@@ -921,76 +953,78 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
                 <CodeBlock code={dockerCompose} />
 
                 {/* Recommended Cloud VDS Sponsor Card (OWEB & Hosting.com.tr) */}
-                <div className="rounded-[2px] border border-[#2B1A42] bg-[#120A21] p-3.5 shadow-xl">
-                  <div className="flex items-center justify-between pb-2 border-b border-[#2B1A42]">
-                    <div className="flex items-center gap-2">
-                      <span className="flex h-2 w-2 rounded-full bg-[#8B5CF6] animate-pulse" />
-                      <h4 className="text-xs font-bold text-[#F5F3FF] flex items-center gap-1.5">
-                        <span>{isTr ? 'Önerilen VDS Altyapısı' : isPt ? 'Infraestrutura VDS Recomendada' : 'Recommended Cloud VDS'}</span>
-                        <span className="text-[10px] font-normal text-[#C084FC]">({nodes.length} {isTr ? 'Modül' : isPt ? 'Módulos' : 'Modules'})</span>
-                      </h4>
+                {!isCommercialAdsDisabled() && (
+                  <div className="rounded-[2px] border border-[#2B1A42] bg-[#120A21] p-3.5 shadow-xl">
+                    <div className="flex items-center justify-between pb-2 border-b border-[#2B1A42]">
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-2 w-2 rounded-full bg-[#8B5CF6] animate-pulse" />
+                        <h4 className="text-xs font-bold text-[#F5F3FF] flex items-center gap-1.5">
+                          <span>{isTr ? 'Önerilen VDS Altyapısı' : isPt ? 'Infraestrutura VDS Recomendada' : 'Recommended Cloud VDS'}</span>
+                          <span className="text-[10px] font-normal text-[#C084FC]">({nodes.length} {isTr ? 'Modül' : isPt ? 'Módulos' : 'Modules'})</span>
+                        </h4>
+                      </div>
+                      <span className="rounded-[2px] border border-[#2B1A42] bg-[#06030D] px-2 py-0.5 text-[9px] font-mono font-bold text-[#C084FC]">
+                        10 Gbps NVMe
+                      </span>
                     </div>
-                    <span className="rounded-[2px] border border-[#2B1A42] bg-[#06030D] px-2 py-0.5 text-[9px] font-mono font-bold text-[#C084FC]">
-                      10 Gbps NVMe
-                    </span>
-                  </div>
 
-                  <p className="text-[11px] text-[#A19BAF] mt-2 leading-relaxed">
-                    {isTr ? (
-                      <>Tasarladığın bu mimari için <strong className="text-[#F5F3FF]">{Math.max(2, Math.ceil(nodes.length * 0.75))} GB RAM</strong> ve yüksek disk I/O hızına sahip sunucu önerilir.</>
-                    ) : isPt ? (
-                      <>Para esta arquitetura, recomenda-se um servidor com <strong className="text-[#F5F3FF]">{Math.max(2, Math.ceil(nodes.length * 0.75))} GB RAM</strong> e alto I/O de disco.</>
-                    ) : (
-                      <>A server with <strong className="text-[#F5F3FF]">{Math.max(2, Math.ceil(nodes.length * 0.75))} GB RAM</strong> and high disk I/O is recommended for this stack.</>
-                    )}
-                  </p>
+                    <p className="text-[11px] text-[#A19BAF] mt-2 leading-relaxed">
+                      {isTr ? (
+                        <>Tasarladığın bu mimari için <strong className="text-[#F5F3FF]">{recommendedRamGB} GB RAM</strong> ve yüksek disk I/O hızına sahip sunucu önerilir.</>
+                      ) : isPt ? (
+                        <>Para esta arquitetura, recomenda-se um servidor com <strong className="text-[#F5F3FF]">{recommendedRamGB} GB RAM</strong> e alto I/O de disco.</>
+                      ) : (
+                        <>A server with <strong className="text-[#F5F3FF]">{recommendedRamGB} GB RAM</strong> and high disk I/O is recommended for this stack.</>
+                      )}
+                    </p>
 
-                  <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {/* OWEB Sponsor */}
-                    <a
-                      href="https://www.oweb.net.tr/aff.php?aff=975"
-                      target="_blank"
-                      rel="noopener noreferrer sponsored"
-                      className="group flex flex-col justify-between rounded-[2px] border border-[#2B1A42] bg-[#0D0719] hover:bg-[#1E1235] p-2.5 transition-all hover:border-[#8B5CF6]"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-[#C084FC]">⚡ OWEB TR Cloud</span>
-                          <span className="text-[9px] text-[#8B7D9E] font-mono">10 Gbps</span>
+                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {/* OWEB Sponsor */}
+                      <a
+                        href="https://www.oweb.net.tr/aff.php?aff=975"
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                        className="group flex flex-col justify-between rounded-[2px] border border-[#2B1A42] bg-[#0D0719] hover:bg-[#1E1235] p-2.5 transition-all hover:border-[#8B5CF6]"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-bold text-[#C084FC]">⚡ OWEB TR Cloud</span>
+                            <span className="text-[9px] text-[#8B7D9E] font-mono">10 Gbps</span>
+                          </div>
+                          <p className="text-[10px] text-[#A19BAF] mt-1 leading-tight">
+                            {isTr ? 'Datacenter NVMe SSD, sıfır gecikmeli Türkiye lokasyon.' : isPt ? 'Datacenter NVMe SSD de alta performance e baixa latência.' : 'Datacenter NVMe SSD with ultra-low latency & high bandwidth.'}
+                          </p>
                         </div>
-                        <p className="text-[10px] text-[#A19BAF] mt-1 leading-tight">
-                          {isTr ? 'Datacenter NVMe SSD, sıfır gecikmeli Türkiye lokasyon.' : isPt ? 'Datacenter NVMe SSD de alta performance e baixa latência.' : 'Datacenter NVMe SSD with ultra-low latency & high bandwidth.'}
-                        </p>
-                      </div>
-                      <div className="mt-2.5 flex items-center justify-between text-[11px] font-bold text-[#C084FC] group-hover:text-[#F5F3FF]">
-                        <span>{isTr ? 'Hemen Kirala' : isPt ? 'Alugar Agora' : 'Rent Now'}</span>
-                        <span className="text-xs group-hover:translate-x-0.5 transition-transform">↗</span>
-                      </div>
-                    </a>
-
-                    {/* Hosting.com.tr Sponsor */}
-                    <a
-                      href="https://www.hosting.com.tr/aff.php?aff=1702"
-                      target="_blank"
-                      rel="noopener noreferrer sponsored"
-                      className="group flex flex-col justify-between rounded-[2px] border border-[#2B1A42] bg-[#0D0719] hover:bg-[#1E1235] p-2.5 transition-all hover:border-[#8B5CF6]"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-[#C084FC]">🚀 Hosting.com.tr</span>
-                          <span className="text-[9px] text-[#8B7D9E] font-mono">VDS Ultra</span>
+                        <div className="mt-2.5 flex items-center justify-between text-[11px] font-bold text-[#C084FC] group-hover:text-[#F5F3FF]">
+                          <span>{isTr ? 'Hemen Kirala' : isPt ? 'Alugar Agora' : 'Rent Now'}</span>
+                          <span className="text-xs group-hover:translate-x-0.5 transition-transform">↗</span>
                         </div>
-                        <p className="text-[10px] text-[#A19BAF] mt-1 leading-tight">
-                          {isTr ? 'Yüksek CPU çekirdeği & tek tıkla Docker hazır şablon.' : isPt ? 'Alto desempenho de CPU e modelo Docker com 1 clique.' : 'High CPU cores & 1-click Docker ready templates.'}
-                        </p>
-                      </div>
-                      <div className="mt-2.5 flex items-center justify-between text-[11px] font-bold text-[#C084FC] group-hover:text-[#F5F3FF]">
-                        <span>{isTr ? 'VDS Seç' : isPt ? 'Escolher VDS' : 'Choose VDS'}</span>
-                        <span className="text-xs group-hover:translate-x-0.5 transition-transform">↗</span>
-                      </div>
-                    </a>
+                      </a>
+
+                      {/* Hosting.com.tr Sponsor */}
+                      <a
+                        href="https://www.hosting.com.tr/aff.php?aff=1702"
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                        className="group flex flex-col justify-between rounded-[2px] border border-[#2B1A42] bg-[#0D0719] hover:bg-[#1E1235] p-2.5 transition-all hover:border-[#8B5CF6]"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-bold text-[#C084FC]">🚀 Hosting.com.tr</span>
+                            <span className="text-[9px] text-[#8B7D9E] font-mono">VDS Ultra</span>
+                          </div>
+                          <p className="text-[10px] text-[#A19BAF] mt-1 leading-tight">
+                            {isTr ? 'Yüksek CPU çekirdeği & tek tıkla Docker hazır şablon.' : isPt ? 'Alto desempenho de CPU e modelo Docker com 1 clique.' : 'High CPU cores & 1-click Docker ready templates.'}
+                          </p>
+                        </div>
+                        <div className="mt-2.5 flex items-center justify-between text-[11px] font-bold text-[#C084FC] group-hover:text-[#F5F3FF]">
+                          <span>{isTr ? 'VDS Seç' : isPt ? 'Escolher VDS' : 'Choose VDS'}</span>
+                          <span className="text-xs group-hover:translate-x-0.5 transition-transform">↗</span>
+                        </div>
+                      </a>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Portainer Stack Helper Box */}
                 <div className="flex items-center justify-between rounded-[2px] border border-[#2B1A42] bg-[#120A21] p-2.5 text-xs text-[#A19BAF]">
@@ -1021,29 +1055,35 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
               <div className="p-4 space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-semibold text-[#F5F3FF] font-mono">{isTr ? 'Çoklu Platform Dışa Aktar' : isPt ? 'Exportação Multiplataforma' : 'Multi-Platform Export'}</h3>
-                  <div className="flex gap-1">
+                  <div className="flex gap-2">
                     <CopyButton
                       text={
-                        multiFormat === 'docker-run'
-                          ? dockerRunCode
-                          : multiFormat === 'k8s'
+                        multiFormat === 'k8s'
                           ? k8sCode
+                          : multiFormat === 'helm'
+                          ? helmCode
+                          : multiFormat === 'docker-run'
+                          ? dockerRunCode
                           : ansibleCode
                       }
                     />
                     <DownloadButton
                       text={
-                        multiFormat === 'docker-run'
-                          ? dockerRunCode
-                          : multiFormat === 'k8s'
+                        multiFormat === 'k8s'
                           ? k8sCode
+                          : multiFormat === 'helm'
+                          ? helmCode
+                          : multiFormat === 'docker-run'
+                          ? dockerRunCode
                           : ansibleCode
                       }
                       filename={
-                        multiFormat === 'docker-run'
-                          ? 'docker-run.sh'
-                          : multiFormat === 'k8s'
+                        multiFormat === 'k8s'
                           ? 'k8s-manifest.yaml'
+                          : multiFormat === 'helm'
+                          ? 'helm-chart.yaml'
+                          : multiFormat === 'docker-run'
+                          ? 'docker-run.sh'
                           : 'playbook.yml'
                       }
                     />
@@ -1052,17 +1092,6 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
 
                 {/* Sub format pills */}
                 <div className="flex rounded-[2px] bg-[#090514] p-1 border border-[#2B1A42]">
-                  <button
-                    onClick={() => setMultiFormat('docker-run')}
-                    className={cn(
-                      'flex-1 rounded-[2px] py-1 text-[11px] font-mono font-semibold transition-all',
-                      multiFormat === 'docker-run'
-                        ? 'bg-[#8B5CF6] text-white shadow-sm'
-                        : 'text-[#8B7D9E] hover:text-[#F5F3FF]'
-                    )}
-                  >
-                    Docker CLI
-                  </button>
                   <button
                     onClick={() => setMultiFormat('k8s')}
                     className={cn(
@@ -1073,6 +1102,28 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
                     )}
                   >
                     Kubernetes
+                  </button>
+                  <button
+                    onClick={() => setMultiFormat('helm')}
+                    className={cn(
+                      'flex-1 rounded-[2px] py-1 text-[11px] font-mono font-semibold transition-all',
+                      multiFormat === 'helm'
+                        ? 'bg-[#8B5CF6] text-white shadow-sm'
+                        : 'text-[#8B7D9E] hover:text-[#F5F3FF]'
+                    )}
+                  >
+                    Helm 3
+                  </button>
+                  <button
+                    onClick={() => setMultiFormat('docker-run')}
+                    className={cn(
+                      'flex-1 rounded-[2px] py-1 text-[11px] font-mono font-semibold transition-all',
+                      multiFormat === 'docker-run'
+                        ? 'bg-[#8B5CF6] text-white shadow-sm'
+                        : 'text-[#8B7D9E] hover:text-[#F5F3FF]'
+                    )}
+                  >
+                    Docker CLI
                   </button>
                   <button
                     onClick={() => setMultiFormat('ansible')}
@@ -1087,18 +1138,21 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
                   </button>
                 </div>
 
-                <p className="text-[11px] text-[#8B7D9E] leading-relaxed">
-                  {multiFormat === 'docker-run' && (isTr ? 'Docker Compose olmadan her konteyneri tek satırlık terminal komutuyla başlatmak için.' : isPt ? 'Para iniciar cada container com comando de linha única sem Docker Compose.' : 'To run each container with a single-line terminal command without Docker Compose.')}
-                  {multiFormat === 'k8s' && (isTr ? 'K3s, MicroK8s veya Kubernetes kümesinde deployment ve service olarak çalıştırmak için.' : isPt ? 'Para executar como deployment e service em clusters K3s, MicroK8s ou Kubernetes.' : 'To run as deployments and services in K3s, MicroK8s, or Kubernetes clusters.')}
-                  {multiFormat === 'ansible' && (isTr ? 'Çoklu uzak sunuculara otomatik dağıtım için hazır Ansible Playbook formatı.' : isPt ? 'Formato Ansible Playbook pronto para distribuição automatizada em múltiplos servidores remotos.' : 'Ready Ansible Playbook format for automated deployment to multiple remote servers.')}
+                <p className="text-[11px] text-[#8B7D9E] leading-relaxed font-mono">
+                  {multiFormat === 'k8s' && (isTr ? 'K3s, MicroK8s veya Kubernetes kümesinde PVC ve Secret/ConfigMap ayrımıyla production manifestosu.' : 'Production-grade Kubernetes manifests with PVC storage and Secret/ConfigMap separation.')}
+                  {multiFormat === 'helm' && (isTr ? 'Chart.yaml, values.yaml ve Go template manifestolarını içeren kurumsal Helm 3 paketi.' : 'Enterprise Helm 3 package including Chart.yaml, values.yaml, and Go templates.')}
+                  {multiFormat === 'docker-run' && (isTr ? 'Docker Compose olmadan her konteyneri tek satırlık terminal komutuyla başlatmak için.' : 'To run each container with a single-line terminal command without Docker Compose.')}
+                  {multiFormat === 'ansible' && (isTr ? 'Çoklu uzak sunuculara otomatik dağıtım için hazır Ansible Playbook formatı.' : 'Ready Ansible Playbook format for automated deployment to multiple remote servers.')}
                 </p>
 
                 <CodeBlock
                   code={
-                    multiFormat === 'docker-run'
-                      ? dockerRunCode
-                      : multiFormat === 'k8s'
+                    multiFormat === 'k8s'
                       ? k8sCode
+                      : multiFormat === 'helm'
+                      ? helmCode
+                      : multiFormat === 'docker-run'
+                      ? dockerRunCode
                       : ansibleCode
                   }
                 />
