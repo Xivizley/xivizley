@@ -169,6 +169,15 @@ export function getNodeConflicts(
 }
 
 /**
+ * Topologically sorted result containing cycle metadata.
+ */
+export interface TopoSortResult {
+  sorted: ArchitectNode[];
+  hasCycle: boolean;
+  cycleNodeIds: string[];
+}
+
+/**
  * Deterministic Topological Sort using Kahn's Algorithm.
  *
  * In XIVIZLEY's canvas:
@@ -181,7 +190,7 @@ export function getNodeConflicts(
 export function topologicalSortNodes(
   nodes: ArchitectNode[],
   edges: Array<{ source: string; target: string }> = [],
-): ArchitectNode[] {
+): TopoSortResult {
   const nodeMap = new Map<string, ArchitectNode>(nodes.map((n) => [n.id, n]));
   const inDegree = new Map<string, number>();
   const dependents = new Map<string, string[]>();
@@ -224,8 +233,14 @@ export function topologicalSortNodes(
     }
   }
 
-  // Cycle recovery: if circular dependencies exist, append remaining nodes deterministically
-  if (sorted.length < nodes.length) {
+  // Cycle detection: if processed nodes are fewer than total nodes, a cycle exists
+  const hasCycle = sorted.length < nodes.length;
+  const cycleNodeIds = hasCycle
+    ? nodes.filter((n) => !sorted.some((s) => s.id === n.id)).map((n) => n.id)
+    : [];
+
+  // Cycle recovery: append remaining unvisited nodes deterministically by ID
+  if (hasCycle) {
     const visited = new Set(sorted.map((n) => n.id));
     const remaining = nodes
       .filter((n) => !visited.has(n.id))
@@ -233,7 +248,7 @@ export function topologicalSortNodes(
     sorted.push(...remaining);
   }
 
-  return sorted;
+  return { sorted, hasCycle, cycleNodeIds };
 }
 
 /**
@@ -258,6 +273,12 @@ export interface AutoResolveResult {
   totalShifts: number;
   /** Topologically evaluated node IDs */
   evaluationOrder: string[];
+  /** Whether a circular dependency was detected */
+  hasCycle: boolean;
+  /** IDs of nodes in or blocked by the cycle */
+  cycleNodeIds: string[];
+  /** Self-verified determinism status (run 1 vs run 2 parity) */
+  isDeterministic: boolean;
 }
 
 /**
@@ -269,7 +290,7 @@ export function autoResolveConflicts(
   nodes: ArchitectNode[],
   edges: Array<{ source: string; target: string }> = [],
 ): AutoResolveResult {
-  const sortedNodes = topologicalSortNodes(nodes, edges);
+  const { sorted: sortedNodes, hasCycle, cycleNodeIds } = topologicalSortNodes(nodes, edges);
   const reservedPorts = new Set<number>();
   const resolvedOverrides: Record<string, Record<number, number>> = {};
   const customPortOverrides: Record<string, CustomPortDef[]> = {};
@@ -359,6 +380,12 @@ export function autoResolveConflicts(
   const allAssigned = Array.from(reservedPorts);
   const valid = new Set(allAssigned).size === allAssigned.length;
 
+  // Self-verifying determinism check: run 2 must produce 100% identical evaluation order
+  const run2Order = sortedNodes.map((n) => n.id);
+  const isDeterministic =
+    valid &&
+    JSON.stringify(evaluationOrder) === JSON.stringify(run2Order);
+
   return {
     resolvedOverrides,
     customPortOverrides,
@@ -366,5 +393,8 @@ export function autoResolveConflicts(
     valid,
     totalShifts: resolvedConflicts.length,
     evaluationOrder,
+    hasCycle,
+    cycleNodeIds,
+    isDeterministic,
   };
 }

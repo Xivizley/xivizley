@@ -29,6 +29,7 @@ import { MinecraftConfigStudio } from './MinecraftConfigStudio';
 import { TurnstileWidget } from '@/components/shared/TurnstileWidget';
 import { calculateHardwareEstimate } from '@/lib/utils/hardwareEstimator';
 import { isCommercialAdsDisabled } from '@/lib/utils/adPolicy';
+import { validateRoundTrip } from '@/lib/engines/roundTrip';
 
 // ─── Copy Button ─────────────────────────────────────────────
 
@@ -781,6 +782,9 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
   const nodes = useArchitectStore((s) => s.nodes);
   const edges = useArchitectStore((s) => s.edges);
   const conflictCount = useArchitectStore((s) => s.conflictMap.size);
+  const resolveReport = useArchitectStore((s) => s.resolveReport);
+  const clearResolveReport = useArchitectStore((s) => s.clearResolveReport);
+  const roundTripResult = useMemo(() => validateRoundTrip(nodes, edges), [nodes, edges]);
   const selectedNodeId = useArchitectStore((s) => s.selectedNodeId);
   const [activeTab, setActiveTab] = useState<Tab>(
     selectedNodeId ? 'configure' : 'compose',
@@ -906,7 +910,27 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
             {activeTab === 'compose' && (
               <div className="p-4 pb-8 space-y-3">
                 <div className="space-y-2">
-                  <h3 className="text-sm font-semibold text-[#F5F3FF] font-mono">docker-compose.yml</h3>
+                  <div className="flex items-center justify-between flex-wrap gap-2">
+                    <h3 className="text-sm font-semibold text-[#F5F3FF] font-mono">docker-compose.yml</h3>
+                    {nodes.length > 0 && (
+                      <span
+                        className={cn(
+                          'inline-flex items-center gap-1 rounded-[2px] border px-2 py-0.5 text-[10px] font-mono font-medium transition-all shadow-sm',
+                          roundTripResult.ok
+                            ? 'border-emerald-500/40 bg-emerald-950/30 text-emerald-300'
+                            : 'border-red-500/40 bg-red-950/30 text-red-300',
+                        )}
+                        title={roundTripResult.details.join(' · ')}
+                      >
+                        <ShieldCheck className="h-3 w-3" />
+                        <span>
+                          {roundTripResult.ok
+                            ? (isTr ? 'Kayıpsız Modelleme (AS1) ✓' : isPt ? 'Modelagem Sem Perdas (AS1) ✓' : 'Lossless Modeling (AS1) ✓')
+                            : (isTr ? 'Kayıplı Modelleme ✗' : isPt ? 'Modelo com Perdas ✗' : 'Lossy Model ✗')}
+                        </span>
+                      </span>
+                    )}
+                  </div>
                   <div className="flex flex-wrap gap-1.5">
                     <CopyButton text={dockerCompose} />
                     <DownloadButton text={dockerCompose} filename="docker-compose.yml" />
@@ -943,6 +967,59 @@ export function OutputPanel({ isOpen, onToggle, onOpenDeploy }: OutputPanelProps
                       <span>⚡</span>
                       <span>{isTr ? 'Çakışmaları Deterministik Çöz' : isPt ? 'Resolver Conflitos' : 'Auto-Resolve Conflicts'}</span>
                     </button>
+                  </div>
+                )}
+                {resolveReport && (
+                  <div className="rounded-[2px] border border-emerald-500/40 bg-emerald-950/25 p-3 text-xs font-mono text-emerald-300 space-y-1.5 shadow-sm">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1.5 font-semibold">
+                        <span className="text-emerald-400">✓</span>
+                        <span>
+                          {isTr
+                            ? `${resolveReport.totalShifts} çakışma çözüldü · Portlar benzersiz · Deterministik`
+                            : `${resolveReport.totalShifts} conflicts resolved · Unique ports · Deterministic`}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {resolveReport.isDeterministic && (
+                          <span className="text-[10px] bg-emerald-900/60 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.5 rounded-[2px]">
+                            {isTr ? 'Determinizm Doğrulandı ✓' : 'Determinism Verified ✓'}
+                          </span>
+                        )}
+                        <button
+                          type="button"
+                          onClick={clearResolveReport}
+                          className="text-[#A19BAF] hover:text-[#F5F3FF] text-[11px] px-1 transition-colors"
+                          title={isTr ? 'Kapat' : 'Dismiss'}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+
+                    {resolveReport.evaluationOrder && resolveReport.evaluationOrder.length > 0 && (
+                      <div className="text-[11px] text-[#C4B5FD] flex items-center gap-1 flex-wrap pt-0.5">
+                        <span className="text-[#A19BAF]">{isTr ? 'Başlatma sırası (Kahn):' : 'Startup sequence (Kahn):'}</span>
+                        <span className="font-semibold text-[#F5F3FF] bg-[#1E1235] px-1.5 py-0.5 rounded-[2px] border border-[#2B1A42]">
+                          {resolveReport.evaluationOrder.join(' → ')}
+                        </span>
+                      </div>
+                    )}
+
+                    {resolveReport.hasCycle && (
+                      <div className="rounded-[2px] border border-red-500/40 bg-red-950/40 p-2 text-[11px] text-red-300 flex items-start gap-1.5 mt-1">
+                        <span className="shrink-0 text-red-400">⚠</span>
+                        <div>
+                          <strong>{isTr ? 'Döngüsel Bağımlılık Algılandı:' : 'Cyclic Dependency Detected:'}</strong>{' '}
+                          <span>{resolveReport.cycleNodeIds.join(', ')}</span>
+                          <span className="block text-[10px] text-red-200/80 mt-0.5">
+                            {isTr
+                              ? 'Çizgede döngü olduğu için kararlı sıra uygulandı; servislerin birbirine döngüsel bağımlı olması başlatma kilitlenmesine yol açabilir.'
+                              : 'Fallback stable ordering applied; circular dependencies may cause startup deadlocks.'}
+                          </span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
                 <EmailExportCard

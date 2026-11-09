@@ -65,6 +65,16 @@ export interface HistorySnapshot {
   edges: ArchitectEdge[];
 }
 
+export interface ResolveReport {
+  totalShifts: number;
+  valid: boolean;
+  hasCycle: boolean;
+  cycleNodeIds: string[];
+  evaluationOrder: string[];
+  isDeterministic: boolean;
+  resolvedAt: string;
+}
+
 // ─── Store Shape ─────────────────────────────────────────────
 
 interface ArchitectState {
@@ -74,6 +84,7 @@ interface ArchitectState {
 
   // Conflict State (derived — recomputed on every node change)
   conflictMap: ConflictMap;
+  resolveReport: ResolveReport | null;
 
   // History / Undo / Redo
   past: HistorySnapshot[];
@@ -124,6 +135,7 @@ interface ArchitectState {
   updateNodeLabel: (nodeId: string, label: string) => void;
   updatePortOverride: (nodeId: string, internalPort: number, newHostPort: number) => void;
   autoResolveAllConflicts: () => AutoResolveResult;
+  clearResolveReport: () => void;
   updateEnvOverride: (nodeId: string, key: string, value: string) => void;
   updateAdvancedSetting: (nodeId: string, key: string, value: unknown) => void;
   updateCustomContainer: (nodeId: string, updates: Partial<ModuleNodeData>) => void;
@@ -218,6 +230,7 @@ export const useArchitectStore = create<ArchitectState>()(
     nodes: [],
     edges: [],
     conflictMap: new Map(),
+    resolveReport: null,
     past: [],
     future: [],
     snapToGrid: true,
@@ -599,8 +612,21 @@ export const useArchitectStore = create<ArchitectState>()(
       });
 
       const { conflictMap, updatedNodes } = recomputeConflicts(rawNodes);
-      set({ nodes: updatedNodes, conflictMap });
+      const report: ResolveReport = {
+        totalShifts: result.totalShifts,
+        valid: result.valid,
+        hasCycle: result.hasCycle,
+        cycleNodeIds: result.cycleNodeIds,
+        evaluationOrder: result.evaluationOrder,
+        isDeterministic: result.isDeterministic,
+        resolvedAt: new Date().toLocaleTimeString(),
+      };
+      set({ nodes: updatedNodes, conflictMap, resolveReport: report });
       return result;
+    },
+
+    clearResolveReport() {
+      set({ resolveReport: null });
     },
 
     updateEnvOverride(nodeId, key, value) {
@@ -668,7 +694,7 @@ export const useArchitectStore = create<ArchitectState>()(
     clearCanvas() {
       if (get().nodes.length === 0 && get().edges.length === 0) return;
       pushHistory(get, set);
-      set({ nodes: [], edges: [], conflictMap: new Map(), selectedNodeId: null });
+      set({ nodes: [], edges: [], conflictMap: new Map(), selectedNodeId: null, resolveReport: null });
     },
 
     // ── Selection & Settings ──
