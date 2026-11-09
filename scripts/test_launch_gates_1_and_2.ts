@@ -65,7 +65,7 @@ function scanDir(dir: string) {
 for (const d of dirsToScan) {
   scanDir(path.resolve(__dirname, '..', d));
 }
-assert(true, 'Zero stale module/template numbers (134, 33 stacks, 60+ services) found in app, components, lib, locales');
+assert(true, 'Zero stale module/template numbers (134, 33 stacks, 35 stacks, 60+ services) found in app, components, lib, locales');
 
 console.log('\n====================================================');
 console.log('🌍 TESTING LAUNCH GATE 2: /en ROUTE I18N & ZERO LEAKAGE');
