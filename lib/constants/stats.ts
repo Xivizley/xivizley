@@ -1,12 +1,12 @@
 /**
  * Single source of truth for platform statistics and catalog numbers.
- * Derived directly from MODULE_CATALOG (150) and STACK_TEMPLATES (35).
+ * Derived directly from MODULE_CATALOG (150) and STACK_TEMPLATES (38).
  */
 export const PLATFORM_STATS = {
   totalModules: 150,
-  totalTemplates: 35,
+  totalTemplates: 38,
   modulesDisplay: '150',
-  templatesDisplay: '35',
+  templatesDisplay: '38',
   // Single source of truth for the Suite release label/stage.
   // Keep every UI reference (landing, /suite, navbar, installer) fed from here
   // so the public version can never drift out of sync again.

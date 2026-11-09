@@ -1385,6 +1385,146 @@ services:
       - ./beszel/beszel_data:/beszel_data
       - /var/run/docker.sock:/var/run/docker.sock:ro`,
   },
+  // ═════════════════════════════════════════════════════════════
+  // YENİ (2026) — RUST DEDICATED PRO SURVIVAL ARENASI
+  // ═════════════════════════════════════════════════════════════
+  {
+    id: 'rust-dedicated-arena',
+    title: 'Rust Dedicated Pro Survival Arenası',
+    subtitle: 'Rust Dedicated Server + Uptime Kuma',
+    description: 'SteamCMD tabanlı, otomatik dünya yedekleme ve web tabanlı RCON yönetim paneline sahip yüksek performanslı Rust hayatta kalma sunucu mimarisi.',
+    category: 'game',
+    isPro: true,
+    difficulty: 'Orta',
+    minRamGB: 10,
+    icon: '☢️',
+    color: '#EA580C',
+    tags: ['Rust', 'SteamCMD', 'RCON', 'Uptime Kuma', 'Oyun Sunucusu', 'Dedicated'],
+    moduleIds: ['rust-server', 'uptime-kuma'],
+    composeSnippet: `services:
+  rust-server:
+    image: didstopia/rust-server:latest
+    restart: unless-stopped
+    ports:
+      - "28015:28015/udp"
+      - "28016:28016/tcp"
+    environment:
+      - RUST_SERVER_STARTUP_ARGUMENTS=-batchmode -load -nographics +server.port 28015 +rcon.port 28016 +rcon.web 1
+      - RUST_SERVER_NAME=XIVIZLEY Rust Dedicated
+      - RUST_SERVER_MAXPLAYERS=50
+      - RUST_RCON_PASSWORD=ChangeMeRustSecurePassword123!
+    volumes:
+      - ./rust/server:/steamcmd/rust
+      - ./rust/backup:/steamcmd/rust/backup
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./uptime-kuma/data:/app/data`,
+  },
+  // ═════════════════════════════════════════════════════════════
+  // YENİ (2026) — VALHEIM VIKING CO-OP ÖZEL SUNUCUSU
+  // ═════════════════════════════════════════════════════════════
+  {
+    id: 'valheim-viking-coop',
+    title: 'Valheim Viking Co-op Özel Sunucusu',
+    subtitle: 'Valheim Dedicated Server + Uptime Kuma',
+    description: 'Arkadaş grubuyla kesintisiz, düşük gecikmeli, otomatik dünya yedekleme ve BepInEx mod destekli İskandinav mitolojisi survival sunucusu.',
+    category: 'game',
+    isPro: false,
+    difficulty: 'Kolay',
+    minRamGB: 4,
+    icon: '⚔️',
+    color: '#059669',
+    tags: ['Valheim', 'Co-op', 'SteamCMD', 'Uptime Kuma', 'Viking', 'Oyun'],
+    moduleIds: ['valheim-server', 'uptime-kuma'],
+    composeSnippet: `services:
+  valheim-server:
+    image: lloesche/valheim-server:latest
+    restart: unless-stopped
+    ports:
+      - "2456:2456/udp"
+      - "2457:2457/udp"
+    environment:
+      - SERVER_NAME=XIVIZLEY Valheim Realm
+      - WORLD_NAME=Dedicated
+      - SERVER_PASS=ChangeMeValheimSecret!
+      - SERVER_PUBLIC=true
+    volumes:
+      - ./valheim/config:/config
+      - ./valheim/data:/opt/valheim
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./uptime-kuma/data:/app/data`,
+  },
+  // ═════════════════════════════════════════════════════════════
+  // YENİ (2026) — OTONOM AI AJANI & CANLI WEB ARAMA ÜSSÜ
+  // ═════════════════════════════════════════════════════════════
+  {
+    id: 'autonomous-ai-agent-hub',
+    title: 'Otonom Yapay Zeka Ajanı & Web Arama Üssü',
+    subtitle: 'n8n + Ollama + SearXNG + Qdrant',
+    description: 'Görsel iş akışı otomasyonu (n8n), yerel dil modelleri (Ollama), gizli meta-arama motoru (SearXNG) ve vektör veritabanı (Qdrant) ile otonom çalışan yapay zeka ajan mimarisi.',
+    category: 'ai',
+    isPro: true,
+    difficulty: 'İleri Düzey',
+    minRamGB: 8,
+    icon: '🤖',
+    color: '#8B5CF6',
+    tags: ['n8n', 'Ollama', 'SearXNG', 'Qdrant', 'AI Agent', 'Otomasyon', 'RAG'],
+    moduleIds: ['n8n', 'ollama', 'searxng', 'qdrant'],
+    composeSnippet: `services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - GENERIC_TIMEZONE=Europe/Istanbul
+      - N8N_COMMUNITY_PACKAGES_ENABLED=true
+    volumes:
+      - ./n8n/data:/home/node/.n8n
+    depends_on:
+      - ollama
+      - qdrant
+      - searxng
+
+  ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama/models:/root/.ollama
+
+  searxng:
+    image: searxng/searxng:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./searxng:/etc/searxng
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./qdrant/storage:/qdrant/storage`,
+  },
 ];
 
 // ─── Legacy ArchitectureTemplate & PREDEFINED_TEMPLATES ───────
