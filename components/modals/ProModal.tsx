@@ -198,8 +198,8 @@ export function ProModal({ isOpen, onClose, onOpenStoryCard }: ProModalProps) {
           <p className="text-xs text-[#A19BAF] mt-2 leading-relaxed">
             {isPro
               ? isTr
-                ? 'Hesabınızda 35 kurumsal şablon, AI doktoru, DIN EN 61082-1 PDF şartname ve sınırsız dışa aktarma yetkileri devrede.'
-                : 'All 35 enterprise stacks, AI doctor, DIN EN 61082-1 PDF blueprints, and unlimited exports are active.'
+                ? 'Hesabınızda 38 kurumsal şablon, AI doktoru, DIN EN 61082-1 PDF şartname ve sınırsız dışa aktarma yetkileri devrede.'
+                : 'All 38 enterprise stacks, AI doctor, DIN EN 61082-1 PDF blueprints, and unlimited exports are active.'
               : isTr
               ? 'Kurumsal şablonlar, yapay zeka mimari analizi ve ömür boyu VIP lisansı tek pakette.'
               : 'Enterprise stacks, AI architecture analysis, and lifetime VIP perks in one unified tier.'}

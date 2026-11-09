@@ -166,7 +166,7 @@ case "$1" in
 
     market|store)
         show_header
-        echo -e "\${PURPLE}🛒 XIVIZLEY OS 1-TIKLA UYGULAMA MAĞAZASI (35+ Şablon Desteği):\${NC}\n"
+        echo -e "\${PURPLE}🛒 XIVIZLEY OS 1-TIKLA UYGULAMA MAĞAZASI (38+ Şablon Desteği):\${NC}\n"
         echo -e "  \${CYAN}1.\${NC}  \${BOLD}suite\${NC}           ➔ XIVIZLEY Suite (Nextcloud Hub, Pass, Drive, Pulse, Game)"
         echo -e "  \${CYAN}2.\${NC}  \${BOLD}nextcloud\${NC}       ➔ Özel Kişisel Bulut (Google Drive Alternatifi)"
         echo -e "  \${CYAN}3.\${NC}  \${BOLD}vaultwarden\${NC}     ➔ Şifre Yöneticisi (Bitwarden Server)"

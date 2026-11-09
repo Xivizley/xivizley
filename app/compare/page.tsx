@@ -357,7 +357,7 @@ export default function ComparePage() {
               className="inline-flex items-center gap-2 rounded-xl border border-[#2B1A42] bg-[#0E091E] px-6 py-3 font-medium text-violet-200 hover:border-violet-500/40 hover:bg-[#150D2E] transition-all"
             >
               <Boxes className="h-4 w-4 text-violet-400" />
-              <span>35+ Hazır Şablon</span>
+              <span>38+ Hazır Şablon</span>
             </Link>
             <a
               href="https://forum.xivizley.com.tr"
@@ -838,7 +838,7 @@ export default function ComparePage() {
               href="/templates"
               className="inline-flex items-center gap-2 rounded-2xl border border-[#2B1A42] bg-[#090514] px-8 py-4 font-medium text-violet-200 hover:border-violet-500/50 hover:bg-[#120a22] transition-all"
             >
-              <span>Küratörlü Şablonlar (35+)</span>
+              <span>Küratörlü Şablonlar (38+)</span>
             </Link>
           </div>
         </section>
