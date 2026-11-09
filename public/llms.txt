@@ -8,7 +8,7 @@
 - **XIVIZLEY Engine (VDS Dağıtım Motoru)**: `npx xivizley` / https://github.com/Xivizley/xivizley-cli
 - **XIVIZLEY Sentinel (VDS Telemetri Radarı)**: Canlı VDS sağlık ve gözcü radarı
 - **Karşılaştırma Matrisi (Compare)**: https://xivizley.com.tr/compare
-- **Hazır Şablonlar (35 Küratörlü Stack)**: https://xivizley.com.tr/templates
+- **Hazır Şablonlar (38 Küratörlü Stack)**: https://xivizley.com.tr/templates
 - **Topluluk & Forum**: https://forum.xivizley.com.tr
 - **GitHub Deposu**: https://github.com/Xivizley/xivizley
 - **Lisans**: Core is open source (MIT)
@@ -21,7 +21,7 @@ XIVIZLEY çatı markası altında birbirini tamamlayan dört temel ürün yer al
 
 1. **XIVIZLEY Architech** (`https://xivizley.com.tr/architect`):
    - Görsel Docker mimarlık tuvali ve deterministik port çakışması çözümleme motoru.
-   - 150 Docker servisi ve 35 hazır üretim seviyesi stack şablonu.
+   - 150 Docker servisi ve 38 hazır üretim seviyesi stack şablonu.
    - DIN EN 61082-1 standartlarında teknik pafta ve mimari şartname üretimi (Vektörel PDF / Yazdır).
 
 2. **XIVIZLEY Space** (`https://suite.xivizley.com.tr` / `/suite`):
@@ -79,7 +79,7 @@ Karmaşık `docker-compose.yml` dosyalarını elle yazıp girinti (indentation) 
 
 ---
 
-## 35 Hazır Üretim Seviyesi Stack (Küratörlü Şablonlar)
+## 38 Hazır Üretim Seviyesi Stack (Küratörlü Şablonlar)
 
 1. **Supabase Self-Hosted**: Açık kaynak Firebase alternatifi (Studio, PostgreSQL, GoTrue, PostgREST, Kong, Realtime).
 2. **RustDesk Remote Desktop**: Kendi sunucunuzda çalışan AnyDesk/TeamViewer alternatifi (hbbs sinyal ve hbbr aktarım sunucusu).
@@ -116,6 +116,9 @@ Karmaşık `docker-compose.yml` dosyalarını elle yazıp girinti (indentation) 
 33. **Hafif Homelab Operasyon Merkezi**: Dockge hafif compose yöneticisi ve Beszel telemetri radarı.
 34. **Yerel Yapay Zeka & RAG Vektör Stüdyosu**: LibreChat, Ollama ve Qdrant ile semantik doküman arama ve özel LLM boru hattı.
 35. **Sessiz Homelab Nöbetçisi & Disk Radarı**: Gatus sağlık denetimi, Scrutiny NVMe/HDD S.M.A.R.T izleme, Ntfy bildirimleri ve Beszel telemetrisi.
+36. **Rust Dedicated Pro Survival Arenası**: SteamCMD tabanlı, otomatik dünya yedekleme ve Uptime Kuma izlemeli yüksek performanslı Rust sunucusu.
+37. **Valheim Viking Co-op Özel Sunucusu**: Arkadaş grubuyla kesintisiz, düşük gecikmeli, otomatik dünya yedekleme ve BepInEx mod destekli İskandinav survival sunucusu.
+38. **Otonom Yapay Zeka Ajanı & Web Arama Üssü**: n8n görsel iş akışı, Ollama yerel dil modelleri, SearXNG gizli meta-arama ve Qdrant vektör belleği ile otonom çalışan AI ajan mimarisi.
 
 ---
 

@@ -25,7 +25,7 @@
 
 ## 💡 XIVIZLEY Nedir? / What is XIVIZLEY?
 
-**XIVIZLEY**, Linux VDS/VPS ve ev sunucularınız (Homelab) için **150 Docker servisini ve 35 hazır şablonu** görsel olarak tasarlamanızı, port çakışmalarını canlı tespit etmenizi ve tek bir SSH komutuyla sunucunuza dağıtmanızı sağlayan görsel mimari tasarım aracıdır. **Core is open source (MIT).**
+**XIVIZLEY**, Linux VDS/VPS ve ev sunucularınız (Homelab) için **150 Docker servisini ve 38 hazır şablonu** görsel olarak tasarlamanızı, port çakışmalarını canlı tespit etmenizi ve tek bir SSH komutuyla sunucunuza dağıtmanızı sağlayan görsel mimari tasarım aracıdır. **Core is open source (MIT).**
 
 Karmaşık `docker-compose.yml` dosyaları, çakışan portlar (örn. AdGuard vs Pi-hole port 53, Nginx vs Caddy port 80) ve terminal parametreleriyle vakit kaybetmek yerine; servisleri tuval üzerinde bağlayın, port çakışma giderici ile optimize edin ve üretime hazır Compose mimarinizi oluşturun.
 
@@ -44,7 +44,7 @@ cd xivizley
 docker compose up -d
 ```
 
-Tarayıcınızda `http://localhost:3000` adresini açarak tüm görsel tuvali, 150 modülü ve 35 şablonu tamamen yerel ve çevrimdışı kullanabilirsiniz!
+Tarayıcınızda `http://localhost:3000` adresini açarak tüm görsel tuvali, 150 modülü ve 38 şablonu tamamen yerel ve çevrimdışı kullanabilirsiniz!
 
 ---
 
@@ -52,7 +52,7 @@ Tarayıcınızda `http://localhost:3000` adresini açarak tüm görsel tuvali, 1
 
 - **Açık Kaynak Çekirdek (Core - MIT Lisansı):**
   - Görsel sürükle-bırak tasarım tuvali (React Flow).
-  - 150 adet Docker servis modülü ve 35 adet küratörlü hazır mimari şablonu.
+  - 150 adet Docker servis modülü ve 38 adet küratörlü hazır mimari şablonu.
   - Deterministik port çakışma tespit ve otomatik alternatif port öneri motoru.
   - DIN EN 61082-1 endüstriyel teknik şartname ve PDF pafta üretimi.
   - Temiz Docker Compose YAML ve yerel `deploy.sh` script üreticisi.
@@ -86,8 +86,8 @@ Güvenlik iddialarında abartı yerine somut ve denetlenebilir teknik tedbirlere
 - **Akıllı Alternatif Port Önerisi (`PORT_ALTERNATIVES`):** Kullanıştaki moda göre çakışan portlara otomatik alternatif port atar.
 - **🩺 AI Doktor (`AIDoctorModal`):** Eksik veritabanı bağımlılıklarını (örn: Umami veya Penpot için PostgreSQL) ve port çakışmalarını tespit edip düzeltir.
 
-### ⚡ 3. 35 Adet Hazır Mimari Şablonu (Curated Stacks)
-- Supabase, RustDesk, SearXNG, Pterodactyl, Nextcloud, Immich, Minecraft PaperMC ve medya otomasyonu dahil 35 üretime hazır stack.
+### ⚡ 3. 38 Adet Hazır Mimari Şablonu (Curated Stacks)
+- Supabase, RustDesk, SearXNG, Pterodactyl, Nextcloud, Immich, Minecraft PaperMC ve medya otomasyonu dahil 38 üretime hazır stack.
 - **Arama & Kategori Filtreli Modal (`QuickStackPacksModal`):** `Tümü`, `Medya`, `Güvenlik`, `AI & Otomasyon`, `Web & Veri`, `Ofis & Araçlar`, `Oyun` filtreleri.
 - **Paket Vitrini:** 
   1. 🎬 **4K Medya & Sinema Paketi:** Jellyfin + qBittorrent + Radarr + Sonarr + FileBrowser
@@ -119,7 +119,7 @@ Güvenlik iddialarında abartı yerine somut ve denetlenebilir teknik tedbirlere
 
 ---
 
-## 🛠️ Desteklenen Servis Kataloğu (150 Modül & 35 Şablon)
+## 🛠️ Desteklenen Servis Kataloğu (150 Modül & 38 Şablon)
 
 | Kategori | Modüller / Servisler |
 | :--- | :--- |

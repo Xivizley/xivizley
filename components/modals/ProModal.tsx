@@ -25,6 +25,7 @@ import {
 import { useProStore } from '@/store/useProStore';
 import { useI18nStore } from '@/lib/i18n/store';
 import { cn } from '@/lib/utils';
+import { isCommercialAdsDisabled } from '@/lib/utils/adPolicy';
 
 export interface ProModalProps {
   isOpen: boolean;
@@ -51,15 +52,15 @@ export function ProModal({ isOpen, onClose, onOpenStoryCard }: ProModalProps) {
     {
       icon: Layers,
       title: isTr
-        ? '35+ Kurumsal Flagship Mimari'
+        ? '38+ Kurumsal Flagship Mimari'
         : isPt
-        ? '35+ Arquiteturas Flagship'
-        : '35+ Enterprise Flagship Stacks',
+        ? '38+ Arquiteturas Flagship'
+        : '38+ Enterprise Flagship Stacks',
       desc: isTr
-        ? 'Supabase, RustDesk, SearXNG, Nextcloud, Pterodactyl gibi 35 hazır stack ve 150 modül.'
+        ? 'Supabase, RustDesk, SearXNG, Nextcloud, Pterodactyl gibi 38 hazır stack ve 150 modül.'
         : isPt
-        ? '35 modelos prontos e 150 módulos, incluindo Supabase, RustDesk, SearXNG e Nextcloud.'
-        : '35 ready-to-deploy stacks and 150 modules including Supabase, RustDesk, SearXNG, and Nextcloud.',
+        ? '38 modelos prontos e 150 módulos, incluindo Supabase, RustDesk, SearXNG e Nextcloud.'
+        : '38 ready-to-deploy stacks and 150 modules including Supabase, RustDesk, SearXNG, and Nextcloud.',
     },
     {
       icon: Bot,
@@ -322,26 +323,28 @@ export function ProModal({ isOpen, onClose, onOpenStoryCard }: ProModalProps) {
                 </p>
 
                 {/* Partner VDS Buttons */}
-                <div className="flex flex-wrap items-center gap-2 mt-2.5">
-                  <a
-                    href="https://www.hosting.com.tr/aff.php?aff=1702"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 rounded-[2px] bg-[#1E1235] border border-[#2B1A42] hover:border-[#8B5CF6] text-[#C084FC] hover:text-[#F5F3FF] px-2.5 py-1 text-[11px] font-medium transition-colors"
-                  >
-                    <span>⚡ Hosting.com.tr (VDS Ultra)</span>
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                  <a
-                    href="https://www.oweb.net.tr/aff.php?aff=975"
-                    target="_blank"
-                    rel="noopener noreferrer sponsored"
-                    className="flex items-center gap-1 rounded-[2px] bg-[#1E1235] border border-[#2B1A42] hover:border-[#8B5CF6] text-[#C084FC] hover:text-[#F5F3FF] px-2.5 py-1 text-[11px] font-medium transition-colors"
-                  >
-                    <span>⚡ OWEB (10 Gbit/s NVMe)</span>
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                </div>
+                {!isCommercialAdsDisabled() && (
+                  <div className="flex flex-wrap items-center gap-2 mt-2.5">
+                    <a
+                      href="https://www.hosting.com.tr/aff.php?aff=1702"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 rounded-[2px] bg-[#1E1235] border border-[#2B1A42] hover:border-[#8B5CF6] text-[#C084FC] hover:text-[#F5F3FF] px-2.5 py-1 text-[11px] font-medium transition-colors"
+                    >
+                      <span>⚡ Hosting.com.tr (VDS Ultra)</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                    <a
+                      href="https://www.oweb.net.tr/aff.php?aff=975"
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                      className="flex items-center gap-1 rounded-[2px] bg-[#1E1235] border border-[#2B1A42] hover:border-[#8B5CF6] text-[#C084FC] hover:text-[#F5F3FF] px-2.5 py-1 text-[11px] font-medium transition-colors"
+                    >
+                      <span>⚡ OWEB (10 Gbit/s NVMe)</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -373,8 +376,8 @@ export function ProModal({ isOpen, onClose, onOpenStoryCard }: ProModalProps) {
               }}
               placeholder={
                 isTr
-                  ? 'Örn: 203.0.113.1 veya ORD-12345 veya XIV-PRO-XXXX'
-                  : 'e.g. 203.0.113.1 or ORD-12345 or XIV-PRO-XXXX'
+                  ? 'Örn: 192.168.1.100 veya ORD-12345 veya XIV-PRO-XXXX'
+                  : 'e.g. 192.168.1.100 or ORD-12345 or XIV-PRO-XXXX'
               }
               className="flex-1 rounded-[2px] border border-[#2B1A42] bg-[#0D0719] px-3 py-1.5 text-xs font-mono text-[#F5F3FF] placeholder-[#8B7D9E] focus:outline-none focus:border-[#8B5CF6] uppercase"
             />
